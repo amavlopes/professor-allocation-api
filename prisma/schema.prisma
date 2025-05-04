@@ -13,3 +13,43 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
+
+model Course {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique @db.VarChar(255)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+
+  @@map("courses")
+}
+
+model Department {
+  id         Int         @id @default(autoincrement())
+  name       String      @unique @db.VarChar(255)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@map("departments")
+}
+
+model Professor {
+  id           Int          @id @default(autoincrement())
+  name         String       @db.VarChar(255)
+  cpf          String       @unique
+  createdAt    DateTime     @default(now())
+  updatedAt    DateTime     @updatedAt
+
+  @@map("professors")
+}
+
+model Allocation {
+  id          Int       @id @default(autoincrement())
+  day         Int
+  startHour   DateTime
+  endHour     DateTime
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@map("allocations")
+}
+
