@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "start": "tsx watch ./src/index.ts",
+    "start": "npx tsx watch ./src/index.ts",
+    "prisma-queries": "npx tsx watch ./prisma/queries/index.ts",
+    "prisma-migrate": "npx prisma migrate dev --name process.env.name",
+    "prisma-reset": "npx prisma migrate reset",
     "swagger": "node ./swagger.ts"
   },
   "author": "Amanda Avelino Lopes",
