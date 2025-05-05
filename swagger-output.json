@@ -1,0 +1,751 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Professor Allocation",
+    "version": "1.0.0",
+    "description": ""
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3300"
+    }
+  ],
+  "paths": {
+    "/courses": {
+      "post": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Creates a course",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponse"
+                }
+              }
+            },
+            "description": "Created"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseRequest"
+              }
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Finds all courses",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Deletes all courses in batch",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/courses/{course_id}": {
+      "get": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Finds a course by its id",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Updates a course",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CourseResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CourseRequest"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Course"
+        ],
+        "description": "Deletes a course by its id",
+        "parameters": [
+          {
+            "name": "course_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "CourseRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Engenharia da Computação"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "CourseResponse": {
+        "type": "object",
+        "properties": {
+          "course": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Engenharia da Computação"
+              },
+              "allocations": {
+                "type": "array",
+                "example": [],
+                "items": {}
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
+          }
+        }
+      },
+      "CourseListResponse": {
+        "type": "object",
+        "properties": {
+          "courses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Engenharia da Computação"
+                },
+                "allocations": {
+                  "type": "array",
+                  "example": [],
+                  "items": {}
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:31:14"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:33:50"
+                }
+              }
+            }
+          }
+        }
+      },
+      "DepartmentRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Engenharias"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "DepartmentResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Engenharias"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2025-04-07 04:31:14"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2025-04-07 04:33:50"
+          }
+        }
+      },
+      "DepartmentListResponse": {
+        "type": "object",
+        "properties": {
+          "departments": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Engenharias"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:31:14"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:33:50"
+                }
+              }
+            }
+          }
+        }
+      },
+      "ProfessorRequest": {
+        "type": "object",
+        "properties": {
+          "departmentId": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Paulo Fernandes"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "73902748087"
+          }
+        },
+        "required": [
+          "departmentId",
+          "name",
+          "cpf"
+        ]
+      },
+      "ProfessorUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "departmentId": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Paulo Fernandes"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "73902748087"
+          }
+        }
+      },
+      "ProfessorResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "department": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Engenharias"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
+          },
+          "name": {
+            "type": "string",
+            "example": "Paulo Fernandes"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "73902748087"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2025-04-07 04:31:14"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2025-04-07 04:33:50"
+          }
+        }
+      },
+      "ProfessorListResponse": {
+        "type": "object",
+        "properties": {
+          "professors": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "department": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Engenharias"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:31:14"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:33:50"
+                    }
+                  }
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Paulo Fernandes"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "73902748087"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:31:14"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:33:50"
+                }
+              }
+            }
+          }
+        }
+      },
+      "AllocationRequest": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "number",
+            "example": 1
+          },
+          "professorId": {
+            "type": "number",
+            "example": 1
+          },
+          "day": {
+            "type": "number",
+            "example": 1
+          },
+          "startHour": {
+            "type": "string",
+            "example": "08:00"
+          },
+          "endHour": {
+            "type": "string",
+            "example": "10:00"
+          }
+        },
+        "required": [
+          "courseId",
+          "professorId",
+          "day",
+          "startHour",
+          "endHour"
+        ]
+      },
+      "AllocationUpdateRequest": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "number",
+            "example": 1
+          },
+          "professorId": {
+            "type": "number",
+            "example": 1
+          },
+          "day": {
+            "type": "number",
+            "example": 1
+          },
+          "startHour": {
+            "type": "string",
+            "example": "08:00"
+          },
+          "endHour": {
+            "type": "string",
+            "example": "10:00"
+          }
+        }
+      },
+      "AllocationResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "course": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Engenharia de Software"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
+          },
+          "professor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "departmentId": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Paulo Fernandes"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
+          },
+          "day": {
+            "type": "number",
+            "example": 1
+          },
+          "startHour": {
+            "type": "string",
+            "example": "08:00"
+          },
+          "endHour": {
+            "type": "string",
+            "example": "10:00"
+          },
+          "createdAt": {
+            "type": "string",
+            "example": "2025-04-07 04:31:14"
+          },
+          "updatedAt": {
+            "type": "string",
+            "example": "2025-04-07 04:33:50"
+          }
+        }
+      },
+      "AllocationListResponse": {
+        "type": "object",
+        "properties": {
+          "allocations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number",
+                  "example": 1
+                },
+                "course": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Engenharia de Software"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:31:14"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:33:50"
+                    }
+                  }
+                },
+                "professor": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Paulo Fernandes"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": "73902748087"
+                    },
+                    "departmentId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:31:14"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:33:50"
+                    }
+                  }
+                },
+                "day": {
+                  "type": "number",
+                  "example": 1
+                },
+                "startHour": {
+                  "type": "string",
+                  "example": "08:00"
+                },
+                "endHour": {
+                  "type": "string",
+                  "example": "10:00"
+                },
+                "createdAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:31:14"
+                },
+                "updatedAt": {
+                  "type": "string",
+                  "example": "2025-04-07 04:33:50"
+                }
+              }
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "number",
+            "example": 400
+          },
+          "message": {
+            "type": "string",
+            "example": "\nInvalid `prisma.course.create()` invocation:\n\n\nUnique constraint failed on the constraint: `courses_name_key`"
+          },
+          "details": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "example": "P2002"
+              },
+              "meta": {
+                "type": "object",
+                "properties": {
+                  "modelName": {
+                    "type": "string",
+                    "example": "Course"
+                  },
+                  "target": {
+                    "type": "string",
+                    "example": "courses_name_key"
+                  }
+                }
+              },
+              "clientVersion": {
+                "type": "string",
+                "example": "6.7.0"
+              },
+              "name": {
+                "type": "string",
+                "example": "PrismaClientKnownRequestError"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

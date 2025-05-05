@@ -1,5 +1,5 @@
 import { container } from 'tsyringe';
-import '../../../prisma/prisma.symbol';
+import '../../../prisma/container';
 import ICourseRepository from '../../app/interfaces/course-repository';
 import CourseRepository from '../../app/repositories/course-repository';
 import ICourseService from '../../app/interfaces/course-service';

@@ -1,16 +1,14 @@
 import { HttpStatusEnum } from '../enums/http-status';
 
-export default class ErrorResponse extends Error {
+export default class ErrorResponse {
 	status: number;
+	message: string;
 	details?: any;
 
-	constructor(status: HttpStatusEnum, message: string, details: any) {
-		const error = `Error ${status}: ${message}.\n details: ${details}`;
-		super(error);
-		this.name = 'ErrorReponse';
+	constructor(status: HttpStatusEnum, message: string, details?: any) {
 		this.status = status;
+		this.message = message;
 		this.details = details;
-		this.message = error;
 
 		Object.setPrototypeOf(this, ErrorResponse.prototype);
 	}

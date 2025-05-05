@@ -1,10 +1,12 @@
 import 'dotenv/config';
 import 'reflect-metadata';
-import express from 'express';
 import cors from 'cors';
-import './shared/container';
-
+import express from 'express';
+import bodyParser from 'body-parser';
+import { serve, setup } from 'swagger-ui-express';
+import swaggerFile from '../swagger-output.json';
 import courseRoutes from './app/routes/course-routes';
+import './shared/container';
 
 const app = express();
 
@@ -13,11 +15,13 @@ app.use(
 		origin: process.env.ENABLED_CORS?.split(';') || [],
 	})
 );
-
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(bodyParser.json());
 
-app.use('/courses', courseRoutes);
+app.use(courseRoutes);
+
+app.use('/docs', serve, setup(swaggerFile));
 
 app.listen(process.env.APP_PORT, () => {
 	console.log(`Servidor rodando em http://localhost:${process.env.APP_PORT}`);

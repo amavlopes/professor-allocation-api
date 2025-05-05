@@ -1,31 +1,13 @@
 import express from 'express';
-import { Request, Response } from 'express';
 import { CourseController } from '../controllers/course-controller';
 
 const router = express.Router();
 
-router.post('/', (req, res) => {
-	new CourseController().create(req, res);
-});
-
-router.get('/', (req, res) => {
-	new CourseController().findAll(req, res);
-});
-
-router.get('/:course_id', (req, res) => {
-	new CourseController().findById(req, res);
-});
-
-router.put('/:course_id', (req, res) => {
-	new CourseController().update(req, res);
-});
-
-router.delete('/', (req: Request, res: Response) => {
-	new CourseController().deleteAll(req, res);
-});
-
-router.delete('/:course_id', (req, res) => {
-	new CourseController().deleteById(req, res);
-});
+router.post('/courses', CourseController.create);
+router.get('/courses', CourseController.findAll);
+router.get('/courses/:course_id', CourseController.findById);
+router.put('/courses/:course_id', CourseController.update);
+router.delete('/courses', CourseController.deleteAll);
+router.delete('/courses/:course_id', CourseController.deleteById);
 
 export default router;

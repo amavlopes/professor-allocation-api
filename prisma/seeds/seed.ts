@@ -1,10 +1,9 @@
-import { PrismaClient } from '../generated/prisma';
-import CourseRepository from '../src/app/repositories/course-repository';
-
-const prisma = new PrismaClient();
+import { container } from 'tsyringe';
+import { prisma } from '../';
+import CourseRepository from '../../src/app/repositories/course-repository';
 
 async function main() {
-	const courseRepository = new CourseRepository();
+	const courseRepository = container.resolve(CourseRepository);
 
 	const courses = [{ name: 'Bacharelado em Administração' }, { name: 'Bacharelado em Ciências da Computação' }, { name: 'Bacharelado em Sistemas da Informação' }, { name: 'Licenciatura em Física' }];
 
