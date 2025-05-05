@@ -1,13 +1,14 @@
+import { injectable, inject } from 'tsyringe';
 import ICourse from '../interfaces/course';
 import ICourseRepository from '../interfaces/course-repository';
 import ICourseService from '../interfaces/course-service';
 
+@injectable()
 class CourseService implements ICourseService {
-	private courseRepository: ICourseRepository;
-
-	constructor(private repository: ICourseRepository) {
-		this.courseRepository = repository;
-	}
+	constructor(
+		@inject('CourseRepository')
+		private courseRepository: ICourseRepository
+	) {}
 
 	async create(course: ICourse): Promise<ICourse> {
 		return await this.courseRepository.create(course);
