@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
-import courseRoutes from './app/routes/course-router';
+import courseRoutes from './app/routes/course-routes';
 
 const app = express();
 

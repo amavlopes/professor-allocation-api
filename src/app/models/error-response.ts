@@ -1,6 +1,6 @@
 import { HttpStatusEnum } from '../enums/http-status';
 
-export class ErrorResponse extends Error {
+export default class ErrorResponse extends Error {
 	status: number;
 	details?: any;
 

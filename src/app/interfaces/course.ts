@@ -1,4 +1,4 @@
-export default interface Course {
+export default interface ICourse {
 	id?: number;
 	name: string;
 	allocations?: unknown[];

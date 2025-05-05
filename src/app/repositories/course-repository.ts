@@ -1,23 +1,28 @@
 import { PrismaClient } from '@prisma/client';
-import Course from '../interfaces/course';
+import ICourse from '../interfaces/course';
+import ICourseRepository from '../interfaces/course-repository';
 
-class CourseRepository {
-	constructor(private prisma: PrismaClient) {}
+export default class CourseRepository implements ICourseRepository {
+	private prismaClient: PrismaClient;
 
-	async create(course: Course): Promise<Course> {
-		return await this.prisma.course.create({ data: { ...course } });
+	constructor(private client: PrismaClient) {
+		this.prismaClient = client;
 	}
 
-	async findAll(): Promise<Course[]> {
-		return await this.prisma.course.findMany({
+	async create(course: ICourse): Promise<ICourse> {
+		return await this.prismaClient.course.create({ data: { ...course } });
+	}
+
+	async findAll(): Promise<ICourse[]> {
+		return await this.prismaClient.course.findMany({
 			include: {
 				allocations: true,
 			},
 		});
 	}
 
-	async findAllByName(query: string): Promise<Course[]> {
-		return await this.prisma.course.findMany({
+	async findAllByName(query: string): Promise<ICourse[]> {
+		return await this.prismaClient.course.findMany({
 			where: {
 				name: { contains: query },
 			},
@@ -25,31 +30,31 @@ class CourseRepository {
 		});
 	}
 
-	async findById(id: number): Promise<Course> {
-		return await this.prisma.course.findUnique({
+	async findById(id: number): Promise<ICourse> {
+		return await this.prismaClient.course.findUnique({
 			where: { id },
 			include: { allocations: true },
 		});
 	}
 
-	async update(course: Course): Promise<Course | null> {
+	async update(course: ICourse): Promise<ICourse | null> {
 		const { id, name } = course;
 
 		const courseFounded = await this.findById(id!);
 		if (!courseFounded) return null;
 
-		return await this.prisma.course.update({
+		return await this.prismaClient.course.update({
 			data: { name },
 			where: { id },
 		});
 	}
 
 	async deleteAll(): Promise<void> {
-		await this.prisma.course.deleteMany();
+		await this.prismaClient.course.deleteMany();
 	}
 
-	async deleteAllById(ids: number[]): Promise<void> {
-		await this.prisma.course.deleteMany({
+	async deleteAllByIds(ids: number[]): Promise<void> {
+		await this.prismaClient.course.deleteMany({
 			where: {
 				id: { in: ids },
 			},
@@ -57,10 +62,8 @@ class CourseRepository {
 	}
 
 	async deleteById(id: number): Promise<void> {
-		await this.prisma.course.delete({
+		await this.prismaClient.course.delete({
 			where: { id },
 		});
 	}
 }
-
-export default CourseRepository;
