@@ -1,13 +1,13 @@
 import { injectable, inject } from 'tsyringe';
-import ICourse from '../interfaces/course';
-import ICourseRepository from '../interfaces/course-repository';
-import ICourseService from '../interfaces/course-service';
+import { ICourse } from '../interfaces/course';
+import { IRepository } from '../interfaces/repository';
+import { IService } from '../interfaces/service';
 
 @injectable()
-class CourseService implements ICourseService {
+export class CourseService implements IService<ICourse> {
 	constructor(
 		@inject('CourseRepository')
-		private courseRepository: ICourseRepository
+		private courseRepository: IRepository<ICourse>
 	) {}
 
 	async create(course: ICourse): Promise<ICourse> {
@@ -37,5 +37,3 @@ class CourseService implements ICourseService {
 		await this.courseRepository.deleteById(id);
 	}
 }
-
-export default CourseService;

@@ -1,66 +1,66 @@
-import { injectable, inject } from 'tsyringe';
+import { inject, injectable } from 'tsyringe';
 import { PrismaClient } from '@prisma/client';
 import { IRepository } from '../interfaces/repository';
-import { ICourse } from '../interfaces/course';
+import { IDepartment } from '../interfaces/department';
 
 @injectable()
-export class CourseRepository implements IRepository<ICourse> {
+export class DepartmentRepository implements IRepository<IDepartment> {
 	constructor(
 		@inject('PrismaClient')
 		private prismaClient: PrismaClient
 	) {}
 
-	async create(course: ICourse): Promise<ICourse> {
+	async create(department: IDepartment): Promise<IDepartment> {
 		this.prismaClient.$connect();
-		const resultado = await this.prismaClient.course.create({ data: { ...course }, include: { allocations: true } });
+		const resultado = await this.prismaClient.department.create({ data: { ...department }, include: { professors: true } });
 		this.prismaClient.$disconnect();
 		return resultado;
 	}
 
-	async findAll(): Promise<ICourse[]> {
+	async findAll(): Promise<IDepartment[]> {
 		this.prismaClient.$connect();
-		const resultado = await this.prismaClient.course.findMany({
+		const resultado = await this.prismaClient.department.findMany({
 			include: {
-				allocations: true,
+				professors: true,
 			},
 		});
 		this.prismaClient.$disconnect();
 		return resultado;
 	}
 
-	async findAllByName(query: string): Promise<ICourse[]> {
+	async findAllByName(query: string): Promise<IDepartment[]> {
 		this.prismaClient.$connect();
-		const resultado = await this.prismaClient.course.findMany({
+		const resultado = await this.prismaClient.department.findMany({
 			where: {
 				name: { contains: query },
 			},
-			include: { allocations: true },
+			include: { professors: true },
 		});
 		this.prismaClient.$disconnect();
 		return resultado;
 	}
 
-	async findById(id: number): Promise<ICourse> {
+	async findById(id: number): Promise<IDepartment> {
 		this.prismaClient.$connect();
-		const resultado = await this.prismaClient.course.findUnique({
+		const resultado = await this.prismaClient.department.findUnique({
 			where: { id },
-			include: { allocations: true },
+			include: { professors: true },
 		});
 		this.prismaClient.$disconnect();
 		return resultado;
 	}
 
-	async update(course: ICourse): Promise<ICourse | null> {
-		const { id, name } = course;
+	async update(department: IDepartment): Promise<IDepartment | null> {
+		const { id, name } = department;
 
-		const courseFounded = await this.findById(id!);
-		if (!courseFounded) return null;
+		const departmentFounded = await this.findById(id!);
+		if (!departmentFounded) return null;
 
 		this.prismaClient.$connect();
-		const resultado = await this.prismaClient.course.update({
+		const resultado = await this.prismaClient.department.update({
 			data: { name },
 			where: { id },
-			include: { allocations: true },
+			include: { professors: true },
 		});
 		this.prismaClient.$disconnect();
 		return resultado;
@@ -68,13 +68,13 @@ export class CourseRepository implements IRepository<ICourse> {
 
 	async deleteAll(): Promise<void> {
 		this.prismaClient.$connect();
-		await this.prismaClient.course.deleteMany();
+		await this.prismaClient.department.deleteMany();
 		this.prismaClient.$disconnect();
 	}
 
 	async deleteAllByIds(ids: number[]): Promise<void> {
 		this.prismaClient.$connect();
-		await this.prismaClient.course.deleteMany({
+		await this.prismaClient.department.deleteMany({
 			where: {
 				id: { in: ids },
 			},
@@ -84,7 +84,7 @@ export class CourseRepository implements IRepository<ICourse> {
 
 	async deleteById(id: number): Promise<void> {
 		this.prismaClient.$connect();
-		await this.prismaClient.course.delete({
+		await this.prismaClient.department.delete({
 			where: { id },
 		});
 		this.prismaClient.$disconnect();

@@ -44,6 +44,7 @@ const swaggerConfig = {
 			DepartmentResponse: {
 				id: 1,
 				name: 'Engenharias',
+				professors: [],
 				createdAt: '2025-04-07 04:31:14',
 				updatedAt: '2025-04-07 04:33:50',
 			},
@@ -52,6 +53,7 @@ const swaggerConfig = {
 					{
 						id: 1,
 						name: 'Engenharias',
+						professors: [],
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},

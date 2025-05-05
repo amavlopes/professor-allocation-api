@@ -1,7 +1,6 @@
-export interface ICourse {
+export interface IDepartment {
 	id?: number;
 	name: string;
-	allocations?: unknown[];
 	createdAt?: string;
 	updatedAt?: string;
 }

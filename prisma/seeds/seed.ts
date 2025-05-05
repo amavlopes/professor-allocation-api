@@ -1,6 +1,6 @@
 import { container } from 'tsyringe';
 import { prisma } from '../';
-import CourseRepository from '../../src/app/repositories/course-repository';
+import { CourseRepository } from '../../src/app/repositories/course-repository';
 
 async function main() {
 	const courseRepository = container.resolve(CourseRepository);

@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
 import { container } from 'tsyringe';
-import ErrorResponse from '../models/error-response';
+import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
-import CourseService from '../services/course-service';
+import { CourseService } from '../services/course-service';
 
-class CourseController {
+export class CourseController {
 	static async create(request: Request, response: Response): Promise<void> {
 		/*
       #swagger.tags = ['Course']
@@ -99,7 +99,6 @@ class CourseController {
           description: "",
       }   
     */
-		if (!course) response.status(HttpStatusEnum.NOT_FOUND).send();
 
 		/*  
       #swagger.responses[200] = {
@@ -113,7 +112,8 @@ class CourseController {
           }
       }   
     */
-		response.status(HttpStatusEnum.OK).json({ course });
+		if (!course) response.status(HttpStatusEnum.NOT_FOUND).send();
+		else response.status(HttpStatusEnum.OK).json({ course });
 	}
 
 	static async update(request: Request, response: Response): Promise<void> {
@@ -146,7 +146,6 @@ class CourseController {
             description: "",
         }   
       */
-			if (!course) response.status(HttpStatusEnum.NOT_FOUND).send();
 
 			/*  
         #swagger.responses[200] = {
@@ -160,7 +159,8 @@ class CourseController {
             }
         }   
       */
-			response.status(HttpStatusEnum.OK).json({ course });
+			if (!course) response.status(HttpStatusEnum.NOT_FOUND).send();
+			else response.status(HttpStatusEnum.OK).json({ course });
 		} catch (e: any) {
 			/*  
         #swagger.responses[400] = {
@@ -206,16 +206,29 @@ class CourseController {
 		const { course_id } = request.params;
 		const id = Number(course_id);
 
-		const courseService = container.resolve(CourseService);
-		await courseService.deleteById(id);
+		try {
+			const courseService = container.resolve(CourseService);
+			await courseService.deleteById(id);
 
-		/*  
-      #swagger.responses[204] = {
-          description: "",
-      }   
-    */
-		response.status(HttpStatusEnum.NO_CONTENT).send();
+			/*  
+        #swagger.responses[204] = {
+            description: "",
+        }   
+      */
+			response.status(HttpStatusEnum.NO_CONTENT).send();
+		} catch (e: any) {
+			/*  
+        #swagger.responses[400] = {
+            content: {
+              "application/json": {
+                schema:{
+                    $ref: "#/components/schemas/Error"
+                }
+              }           
+            }
+        }   
+      */
+			response.status(HttpStatusEnum.BAD_REQUEST).json(new ErrorResponse(HttpStatusEnum.BAD_REQUEST, e.message, e));
+		}
 	}
 }
-
-export { CourseController };
