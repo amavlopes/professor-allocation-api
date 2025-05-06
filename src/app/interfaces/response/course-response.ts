@@ -1,7 +1,7 @@
 export interface ICourseResponse {
 	id: number;
 	name: string;
-	allocations: unknown[];
+	allocations?: Array<unknown>; // sem o courseId
 	createdAt: string;
 	updatedAt: string;
 }

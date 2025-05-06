@@ -16,7 +16,6 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 
 		const resultado = await this.prismaClient.department.create({
 			data: { ...department },
-			include: { professors: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -27,10 +26,8 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 	async findAll(): Promise<IDepartmentResponse[]> {
 		this.prismaClient.$connect();
 
-		const resultado = await this.prismaClient.department.findMany({
-			include: {
-				professors: true,
-			},
+		const resultado: IDepartmentResponse[] = await this.prismaClient.department.findMany({
+			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -45,7 +42,7 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 			where: {
 				name: { contains: query },
 			},
-			include: { professors: true },
+			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -58,7 +55,7 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 
 		const resultado = await this.prismaClient.department.findUnique({
 			where: { id },
-			include: { professors: true },
+			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -75,7 +72,6 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 		const resultado = await this.prismaClient.department.update({
 			data: { ...department },
 			where: { id },
-			include: { professors: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -111,5 +107,17 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 		});
 
 		this.prismaClient.$disconnect();
+	}
+
+	private includeProfessorsAndOmitAttributes() {
+		return {
+			include: {
+				professors: {
+					omit: {
+						departmentId: true,
+					},
+				},
+			},
+		};
 	}
 }

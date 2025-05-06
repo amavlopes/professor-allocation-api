@@ -526,7 +526,7 @@
         }
       }
     },
-    "/professors/{department_id}": {
+    "/professors/department/{department_id}": {
       "get": {
         "tags": [
           "Professor"

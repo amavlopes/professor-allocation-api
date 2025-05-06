@@ -16,7 +16,7 @@ export class ProfessorRepository implements IProfessorRepository {
 
 		const resultado = await this.prismaClient.professor.create({
 			data: { ...professor },
-			include: { department: true },
+			...this.returnQueryAndToggleIncludeAllocations(false),
 		});
 
 		this.prismaClient.$disconnect();
@@ -28,9 +28,7 @@ export class ProfessorRepository implements IProfessorRepository {
 		this.prismaClient.$connect();
 
 		const resultado = await this.prismaClient.professor.findMany({
-			include: {
-				department: true,
-			},
+			...this.returnQueryAndToggleIncludeAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -45,7 +43,7 @@ export class ProfessorRepository implements IProfessorRepository {
 			where: {
 				name: { contains: query },
 			},
-			include: { department: true },
+			...this.returnQueryAndToggleIncludeAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -60,7 +58,7 @@ export class ProfessorRepository implements IProfessorRepository {
 			where: {
 				departmentId,
 			},
-			include: { department: true },
+			...this.returnQueryAndToggleIncludeAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -73,7 +71,7 @@ export class ProfessorRepository implements IProfessorRepository {
 
 		const resultado = await this.prismaClient.professor.findUnique({
 			where: { id },
-			include: { department: true },
+			...this.returnQueryAndToggleIncludeAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -90,7 +88,7 @@ export class ProfessorRepository implements IProfessorRepository {
 		const resultado = await this.prismaClient.professor.update({
 			data: { ...professor },
 			where: { id },
-			include: { department: true },
+			...this.returnQueryAndToggleIncludeAllocations(false),
 		});
 
 		this.prismaClient.$disconnect();
@@ -126,5 +124,31 @@ export class ProfessorRepository implements IProfessorRepository {
 		});
 
 		this.prismaClient.$disconnect();
+	}
+
+	private returnQueryAndToggleIncludeAllocations(includeAllocations?: boolean) {
+		const query = {
+			include: { department: true },
+			omit: { departmentId: true },
+		};
+
+		if (includeAllocations) {
+			query.include = {
+				...query.include,
+				...this.includeAllocationsAndOmitAttributes(),
+			};
+		}
+
+		return query;
+	}
+
+	private includeAllocationsAndOmitAttributes() {
+		return {
+			allocations: {
+				omit: {
+					professorId: true,
+				},
+			},
+		};
 	}
 }

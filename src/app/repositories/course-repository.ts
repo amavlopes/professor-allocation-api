@@ -16,7 +16,6 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 
 		const resultado = await this.prismaClient.course.create({
 			data: { ...course },
-			include: { allocations: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -28,9 +27,7 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		this.prismaClient.$connect();
 
 		const resultado = await this.prismaClient.course.findMany({
-			include: {
-				allocations: true,
-			},
+			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -45,7 +42,7 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 			where: {
 				name: { contains: query },
 			},
-			include: { allocations: true },
+			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -58,7 +55,7 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 
 		const resultado = await this.prismaClient.course.findUnique({
 			where: { id },
-			include: { allocations: true },
+			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -75,7 +72,6 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		const resultado = await this.prismaClient.course.update({
 			data: { ...course },
 			where: { id },
-			include: { allocations: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -111,5 +107,17 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		});
 
 		this.prismaClient.$disconnect();
+	}
+
+	private includeAllocationsAndOmitAttributes() {
+		return {
+			include: {
+				allocations: {
+					omit: {
+						courseId: true,
+					},
+				},
+			},
+		};
 	}
 }
