@@ -33,7 +33,7 @@ export class DepartmentController {
 						content: {
 							"application/json": {
 								schema:{
-										$ref: "#/components/schemas/DepartmentResponse"
+										$ref: "#/components/schemas/DepartmentCreateResponse"
 								}
 							}           
 						}

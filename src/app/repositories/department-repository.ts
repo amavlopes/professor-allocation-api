@@ -72,6 +72,7 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 		const resultado = await this.prismaClient.department.update({
 			data: { ...department },
 			where: { id },
+			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();

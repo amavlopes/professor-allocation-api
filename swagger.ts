@@ -18,11 +18,29 @@ const swaggerConfig = {
 			CourseRequest: {
 				$name: 'Engenharia da Computação',
 			},
+			CourseCreateResponse: {
+				course: {
+					id: 1,
+					name: 'Engenharia da Computação',
+					createdAt: '2025-04-07 04:31:14',
+					updatedAt: '2025-04-07 04:33:50',
+				},
+			},
 			CourseResponse: {
 				course: {
 					id: 1,
 					name: 'Engenharia da Computação',
-					allocations: [],
+					allocations: [
+						{
+							id: 1,
+							day: 1,
+							startHour: '08:00',
+							endHour: '10:00',
+							professsorId: 1,
+							createdAt: '2025-04-07 04:31:14',
+							updatedAt: '2025-04-07 04:33:50',
+						},
+					],
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
@@ -32,7 +50,17 @@ const swaggerConfig = {
 					{
 						id: 1,
 						name: 'Engenharia da Computação',
-						allocations: [],
+						allocations: [
+							{
+								id: 1,
+								day: 1,
+								startHour: '08:00',
+								endHour: '10:00',
+								professsorId: 1,
+								createdAt: '2025-04-07 04:31:14',
+								updatedAt: '2025-04-07 04:33:50',
+							},
+						],
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},
@@ -41,11 +69,27 @@ const swaggerConfig = {
 			DepartmentRequest: {
 				$name: 'Engenharias',
 			},
+			DepartmentCreateResponse: {
+				department: {
+					id: 1,
+					name: 'Engenharias',
+					createdAt: '2025-04-07 04:31:14',
+					updatedAt: '2025-04-07 04:33:50',
+				},
+			},
 			DepartmentResponse: {
 				department: {
 					id: 1,
 					name: 'Engenharias',
-					professors: [],
+					professors: [
+						{
+							id: 1,
+							name: 'Paulo Fernandes',
+							cpf: '73902748087',
+							createdAt: '2025-04-07 04:31:14',
+							updatedAt: '2025-04-07 04:33:50',
+						},
+					],
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
@@ -55,7 +99,15 @@ const swaggerConfig = {
 					{
 						id: 1,
 						name: 'Engenharias',
-						professors: [],
+						professors: [
+							{
+								id: 1,
+								name: 'Paulo Fernandes',
+								cpf: '73902748087',
+								createdAt: '2025-04-07 04:31:14',
+								updatedAt: '2025-04-07 04:33:50',
+							},
+						],
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},
@@ -67,10 +119,24 @@ const swaggerConfig = {
 				$departmentId: 1,
 			},
 			ProfessorUpdateRequest: {
-				id: 1,
 				name: 'Paulo Fernandes',
 				cpf: '73902748087',
 				departmentId: 1,
+			},
+			ProfessorCreateResponse: {
+				professor: {
+					id: 1,
+					name: 'Paulo Fernandes',
+					cpf: '73902748087',
+					department: {
+						id: 1,
+						name: 'Engenharias',
+						createdAt: '2025-04-07 04:31:14',
+						updatedAt: '2025-04-07 04:33:50',
+					},
+					createdAt: '2025-04-07 04:31:14',
+					updatedAt: '2025-04-07 04:33:50',
+				},
 			},
 			ProfessorResponse: {
 				professor: {
@@ -83,6 +149,17 @@ const swaggerConfig = {
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},
+					allocations: [
+						{
+							id: 1,
+							day: 1,
+							startHour: '08:00',
+							endHour: '10:00',
+							courseId: 1,
+							createdAt: '2025-04-07 04:31:14',
+							updatedAt: '2025-04-07 04:33:50',
+						},
+					],
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
@@ -99,50 +176,67 @@ const swaggerConfig = {
 							createdAt: '2025-04-07 04:31:14',
 							updatedAt: '2025-04-07 04:33:50',
 						},
+						allocations: [
+							{
+								id: 1,
+								day: 1,
+								startHour: '08:00',
+								endHour: '10:00',
+								courseId: 1,
+								createdAt: '2025-04-07 04:31:14',
+								updatedAt: '2025-04-07 04:33:50',
+							},
+						],
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},
 				],
 			},
 			AllocationRequest: {
-				$courseId: 1,
-				$professorId: 1,
 				$day: 1,
 				$startHour: '08:00',
 				$endHour: '10:00',
+				$courseId: 1,
+				$professorId: 1,
 			},
 			AllocationUpdateRequest: {
+				day: 1,
+				startHour: '08:00',
+				endHour: '10:00',
 				courseId: 1,
 				professorId: 1,
-				day: 1,
-				startHour: '08:00',
-				endHour: '10:00',
 			},
 			AllocationResponse: {
-				id: 1,
-				course: {
+				allocation: {
 					id: 1,
-					name: 'Engenharia de Software',
+					day: 1,
+					startHour: '08:00',
+					endHour: '10:00',
+					course: {
+						id: 1,
+						name: 'Engenharia de Software',
+						createdAt: '2025-04-07 04:31:14',
+						updatedAt: '2025-04-07 04:33:50',
+					},
+					professor: {
+						id: 1,
+						name: 'Paulo Fernandes',
+						cpf: '73902748087',
+						departmentId: 1,
+						createdAt: '2025-04-07 04:31:14',
+						updatedAt: '2025-04-07 04:33:50',
+					},
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
-				professor: {
-					id: 1,
-					departmentId: 1,
-					name: 'Paulo Fernandes',
-					createdAt: '2025-04-07 04:31:14',
-					updatedAt: '2025-04-07 04:33:50',
-				},
-				day: 1,
-				startHour: '08:00',
-				endHour: '10:00',
-				createdAt: '2025-04-07 04:31:14',
-				updatedAt: '2025-04-07 04:33:50',
 			},
 			AllocationListResponse: {
 				allocations: [
 					{
 						id: 1,
+						day: 1,
+						startHour: '08:00',
+						endHour: '10:00',
 						course: {
 							id: 1,
 							name: 'Engenharia de Software',
@@ -157,9 +251,6 @@ const swaggerConfig = {
 							createdAt: '2025-04-07 04:31:14',
 							updatedAt: '2025-04-07 04:33:50',
 						},
-						day: 1,
-						startHour: '08:00',
-						endHour: '10:00',
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},

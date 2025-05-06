@@ -1,5 +1,7 @@
+import { IAllocation } from './allocation';
+
 export interface ICourse {
-	id?: number;
+	id: number;
 	name: string;
-	allocations?: unknown[];
+	allocations: Array<Omit<IAllocation, 'course'>>;
 }

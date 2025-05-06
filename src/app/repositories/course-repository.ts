@@ -72,6 +72,7 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		const resultado = await this.prismaClient.course.update({
 			data: { ...course },
 			where: { id },
+			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();

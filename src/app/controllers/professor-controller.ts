@@ -35,7 +35,7 @@ export class ProfessorController {
             content: {
               "application/json": {
                 schema:{
-                    $ref: "#/components/schemas/ProfessorResponse"
+                    $ref: "#/components/schemas/ProfessorCreateResponse"
                 }
               }           
             }
@@ -180,7 +180,7 @@ export class ProfessorController {
         content: {
           "application/json": {
             schema: {
-              $ref: "#/components/schemas/ProfessorRequest"
+              $ref: "#/components/schemas/ProfessorUpdateRequest"
             }  
           }
         }

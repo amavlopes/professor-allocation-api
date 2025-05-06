@@ -1,9 +1,10 @@
+import { IAllocation } from './allocation';
 import { IDepartment } from './department';
 
 export interface IProfessor {
-	id?: number;
+	id: number;
 	name: string;
 	cpf: string;
-	department?: IDepartment;
-	allocations?: unknown[];
+	department: Omit<IDepartment, 'professors'>;
+	allocations: Array<Omit<IAllocation, 'professor'>>;
 }

@@ -22,7 +22,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CourseResponse"
+                  "$ref": "#/components/schemas/CourseCreateResponse"
                 }
               }
             },
@@ -234,7 +234,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/DepartmentResponse"
+                  "$ref": "#/components/schemas/DepartmentCreateResponse"
                 }
               }
             },
@@ -446,7 +446,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProfessorResponse"
+                  "$ref": "#/components/schemas/ProfessorCreateResponse"
                 }
               }
             },
@@ -639,7 +639,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/ProfessorRequest"
+                "$ref": "#/components/schemas/ProfessorUpdateRequest"
               }
             }
           }
@@ -694,6 +694,32 @@
           "name"
         ]
       },
+      "CourseCreateResponse": {
+        "type": "object",
+        "properties": {
+          "course": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Engenharia da Computação"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
+          }
+        }
+      },
       "CourseResponse": {
         "type": "object",
         "properties": {
@@ -710,8 +736,39 @@
               },
               "allocations": {
                 "type": "array",
-                "example": [],
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "day": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "startHour": {
+                      "type": "string",
+                      "example": "08:00"
+                    },
+                    "endHour": {
+                      "type": "string",
+                      "example": "10:00"
+                    },
+                    "professsorId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:31:14"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:33:50"
+                    }
+                  }
+                }
               },
               "createdAt": {
                 "type": "string",
@@ -743,8 +800,39 @@
                 },
                 "allocations": {
                   "type": "array",
-                  "example": [],
-                  "items": {}
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "day": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "startHour": {
+                        "type": "string",
+                        "example": "08:00"
+                      },
+                      "endHour": {
+                        "type": "string",
+                        "example": "10:00"
+                      },
+                      "professsorId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2025-04-07 04:31:14"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2025-04-07 04:33:50"
+                      }
+                    }
+                  }
                 },
                 "createdAt": {
                   "type": "string",
@@ -771,6 +859,32 @@
           "name"
         ]
       },
+      "DepartmentCreateResponse": {
+        "type": "object",
+        "properties": {
+          "department": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Engenharias"
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
+          }
+        }
+      },
       "DepartmentResponse": {
         "type": "object",
         "properties": {
@@ -787,8 +901,31 @@
               },
               "professors": {
                 "type": "array",
-                "example": [],
-                "items": {}
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "Paulo Fernandes"
+                    },
+                    "cpf": {
+                      "type": "string",
+                      "example": "73902748087"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:31:14"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:33:50"
+                    }
+                  }
+                }
               },
               "createdAt": {
                 "type": "string",
@@ -820,8 +957,31 @@
                 },
                 "professors": {
                   "type": "array",
-                  "example": [],
-                  "items": {}
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "name": {
+                        "type": "string",
+                        "example": "Paulo Fernandes"
+                      },
+                      "cpf": {
+                        "type": "string",
+                        "example": "73902748087"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2025-04-07 04:31:14"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2025-04-07 04:33:50"
+                      }
+                    }
+                  }
                 },
                 "createdAt": {
                   "type": "string",
@@ -861,10 +1021,6 @@
       "ProfessorUpdateRequest": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
           "name": {
             "type": "string",
             "example": "Paulo Fernandes"
@@ -876,6 +1032,57 @@
           "departmentId": {
             "type": "number",
             "example": 1
+          }
+        }
+      },
+      "ProfessorCreateResponse": {
+        "type": "object",
+        "properties": {
+          "professor": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Paulo Fernandes"
+              },
+              "cpf": {
+                "type": "string",
+                "example": "73902748087"
+              },
+              "department": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Engenharias"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:31:14"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:33:50"
+                  }
+                }
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
           }
         }
       },
@@ -915,6 +1122,42 @@
                   "updatedAt": {
                     "type": "string",
                     "example": "2025-04-07 04:33:50"
+                  }
+                }
+              },
+              "allocations": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "day": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "startHour": {
+                      "type": "string",
+                      "example": "08:00"
+                    },
+                    "endHour": {
+                      "type": "string",
+                      "example": "10:00"
+                    },
+                    "courseId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:31:14"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "example": "2025-04-07 04:33:50"
+                    }
                   }
                 }
               },
@@ -971,6 +1214,42 @@
                     }
                   }
                 },
+                "allocations": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "day": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "startHour": {
+                        "type": "string",
+                        "example": "08:00"
+                      },
+                      "endHour": {
+                        "type": "string",
+                        "example": "10:00"
+                      },
+                      "courseId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "example": "2025-04-07 04:31:14"
+                      },
+                      "updatedAt": {
+                        "type": "string",
+                        "example": "2025-04-07 04:33:50"
+                      }
+                    }
+                  }
+                },
                 "createdAt": {
                   "type": "string",
                   "example": "2025-04-07 04:31:14"
@@ -987,14 +1266,6 @@
       "AllocationRequest": {
         "type": "object",
         "properties": {
-          "courseId": {
-            "type": "number",
-            "example": 1
-          },
-          "professorId": {
-            "type": "number",
-            "example": 1
-          },
           "day": {
             "type": "number",
             "example": 1
@@ -1006,27 +1277,27 @@
           "endHour": {
             "type": "string",
             "example": "10:00"
+          },
+          "courseId": {
+            "type": "number",
+            "example": 1
+          },
+          "professorId": {
+            "type": "number",
+            "example": 1
           }
         },
         "required": [
-          "courseId",
-          "professorId",
           "day",
           "startHour",
-          "endHour"
+          "endHour",
+          "courseId",
+          "professorId"
         ]
       },
       "AllocationUpdateRequest": {
         "type": "object",
         "properties": {
-          "courseId": {
-            "type": "number",
-            "example": 1
-          },
-          "professorId": {
-            "type": "number",
-            "example": 1
-          },
           "day": {
             "type": "number",
             "example": 1
@@ -1038,26 +1309,88 @@
           "endHour": {
             "type": "string",
             "example": "10:00"
+          },
+          "courseId": {
+            "type": "number",
+            "example": 1
+          },
+          "professorId": {
+            "type": "number",
+            "example": 1
           }
         }
       },
       "AllocationResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
-          "course": {
+          "allocation": {
             "type": "object",
             "properties": {
               "id": {
                 "type": "number",
                 "example": 1
               },
-              "name": {
+              "day": {
+                "type": "number",
+                "example": 1
+              },
+              "startHour": {
                 "type": "string",
-                "example": "Engenharia de Software"
+                "example": "08:00"
+              },
+              "endHour": {
+                "type": "string",
+                "example": "10:00"
+              },
+              "course": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Engenharia de Software"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:31:14"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:33:50"
+                  }
+                }
+              },
+              "professor": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Paulo Fernandes"
+                  },
+                  "cpf": {
+                    "type": "string",
+                    "example": "73902748087"
+                  },
+                  "departmentId": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:31:14"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:33:50"
+                  }
+                }
               },
               "createdAt": {
                 "type": "string",
@@ -1068,51 +1401,6 @@
                 "example": "2025-04-07 04:33:50"
               }
             }
-          },
-          "professor": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number",
-                "example": 1
-              },
-              "departmentId": {
-                "type": "number",
-                "example": 1
-              },
-              "name": {
-                "type": "string",
-                "example": "Paulo Fernandes"
-              },
-              "createdAt": {
-                "type": "string",
-                "example": "2025-04-07 04:31:14"
-              },
-              "updatedAt": {
-                "type": "string",
-                "example": "2025-04-07 04:33:50"
-              }
-            }
-          },
-          "day": {
-            "type": "number",
-            "example": 1
-          },
-          "startHour": {
-            "type": "string",
-            "example": "08:00"
-          },
-          "endHour": {
-            "type": "string",
-            "example": "10:00"
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2025-04-07 04:31:14"
-          },
-          "updatedAt": {
-            "type": "string",
-            "example": "2025-04-07 04:33:50"
           }
         }
       },
@@ -1127,6 +1415,18 @@
                 "id": {
                   "type": "number",
                   "example": 1
+                },
+                "day": {
+                  "type": "number",
+                  "example": 1
+                },
+                "startHour": {
+                  "type": "string",
+                  "example": "08:00"
+                },
+                "endHour": {
+                  "type": "string",
+                  "example": "10:00"
                 },
                 "course": {
                   "type": "object",
@@ -1177,18 +1477,6 @@
                       "example": "2025-04-07 04:33:50"
                     }
                   }
-                },
-                "day": {
-                  "type": "number",
-                  "example": 1
-                },
-                "startHour": {
-                  "type": "string",
-                  "example": "08:00"
-                },
-                "endHour": {
-                  "type": "string",
-                  "example": "10:00"
                 },
                 "createdAt": {
                   "type": "string",

@@ -1,7 +1,7 @@
 import { IProfessor } from './professor';
 
 export interface IDepartment {
-	id?: number;
+	id: number;
 	name: string;
-	professors?: IProfessor[];
+	professors: Omit<IProfessor, 'department' | 'allocations'>[];
 }

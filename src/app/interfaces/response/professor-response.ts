@@ -1,5 +1,3 @@
-import { IDepartmentResponse } from './department-response';
-
 export interface IProfessorResponse {
 	id: number;
 	name: string;
@@ -10,7 +8,15 @@ export interface IProfessorResponse {
 		createdAt: string;
 		updatedAt: string;
 	};
-	allocations?: Array<unknown>; // sem o professorId
+	allocations?: Array<{
+		id: number;
+		day: string;
+		startHour: string;
+		endHour: string;
+		courseId: number;
+		createdAt: string;
+		updatedAt: string;
+	}>;
 	createdAt: string;
 	updatedAt: string;
 }

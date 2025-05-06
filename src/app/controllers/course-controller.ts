@@ -33,7 +33,7 @@ export class CourseController {
             content: {
               "application/json": {
                 schema:{
-                    $ref: "#/components/schemas/CourseResponse"
+                    $ref: "#/components/schemas/CourseCreateResponse"
                 }
               }           
             }
