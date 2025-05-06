@@ -59,10 +59,18 @@ export class DepartmentController {
 	static async findAll(request: Request, response: Response): Promise<void> {
 		/*
 			#swagger.tags = ['Department']
-			#swagger.description = 'Finds all departments'
+			#swagger.description = 'Finds all departments or finds departments that contains a name if a query parameter name is defined'
 		*/
 
 		const name = request.query.name as string;
+		/*  
+			#swagger.parameters['name'] = {
+				in: 'query',
+				description: '',
+				type: 'string',
+				example: 'ciências humanas'
+			} 
+		*/
 
 		const departmentService = container.resolve(DepartmentService);
 		const departments = await departmentService.findAll(name);
@@ -90,6 +98,14 @@ export class DepartmentController {
 
 		const { department_id } = request.params;
 		const id = Number(department_id);
+		/*  
+			#swagger.parameters['department_id'] = {
+				in: 'path',
+				description: '',
+				type: 'number',
+				example: 1
+			} 
+		*/
 
 		const departmentService = container.resolve(DepartmentService);
 		const department = await departmentService.findById(id);
@@ -119,7 +135,7 @@ export class DepartmentController {
 	static async update(request: Request, response: Response): Promise<void> {
 		/*
 			#swagger.tags = ['Department']
-			#swagger.description = 'Updates a department'
+			#swagger.description = 'Updates a department by its id'
 		*/
 
 		/*  #swagger.requestBody = {
@@ -135,6 +151,15 @@ export class DepartmentController {
 		*/
 		const { department_id } = request.params;
 		const id = Number(department_id);
+		/*  
+			#swagger.parameters['department_id'] = {
+				in: 'path',
+				description: '',
+				type: 'number',
+				example: 1
+			} 
+		*/
+
 		const name = request.body.name as string;
 
 		try {
@@ -180,11 +205,19 @@ export class DepartmentController {
 	static async deleteAll(request: Request, response: Response): Promise<void> {
 		/*
 			#swagger.tags = ['Department']
-			#swagger.description = 'Deletes all departments in batch'
+			#swagger.description = 'Deletes all departments or deletes departments by its ids if a comma separated id list is provided'
 		*/
 
 		const { ids } = request.query;
 		const arrayIds: number[] = (ids as string)?.split(',').map((id) => Number(id));
+		/*  
+			#swagger.parameters['ids'] = {
+				in: 'query',
+				description: '',
+				type: 'string',
+				example: '1,2,3'
+			} 
+		*/
 
 		const departmentService = container.resolve(DepartmentService);
 		await departmentService.deleteAll(arrayIds);
@@ -205,6 +238,14 @@ export class DepartmentController {
 
 		const { department_id } = request.params;
 		const id = Number(department_id);
+		/*  
+			#swagger.parameters['department_id'] = {
+				in: 'path',
+				description: '',
+				type: 'number',
+				example: 1
+			} 
+		*/
 
 		try {
 			const departmentService = container.resolve(DepartmentService);

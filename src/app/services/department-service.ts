@@ -1,30 +1,34 @@
 import { inject, injectable } from 'tsyringe';
-import { IDepartment } from '../interfaces/department';
-import { IRepository } from '../interfaces/repository';
+import { IDepartmentRequest } from '../interfaces/requests/department-request';
+import { IDepartmentResponse } from '../interfaces/response/department-response';
 import { IService } from '../interfaces/service';
+import { IRepository } from '../interfaces/repository';
 
 @injectable()
-export class DepartmentService implements IService<IDepartment> {
+export class DepartmentService implements IService<IDepartmentRequest, IDepartmentResponse> {
 	constructor(
 		@inject('DepartmentRepository')
-		private departmentRepository: IRepository<IDepartment>
+		private departmentRepository: IRepository<IDepartmentRequest, IDepartmentResponse>
 	) {}
 
-	async create(department: IDepartment): Promise<IDepartment> {
+	async create(department: IDepartmentRequest): Promise<IDepartmentResponse> {
 		return await this.departmentRepository.create(department);
 	}
 
-	async findAll(name: string): Promise<IDepartment[]> {
+	async findAll(name: string): Promise<IDepartmentResponse[]> {
 		if (!name) return await this.departmentRepository.findAll();
 
 		return await this.departmentRepository.findAllByName(name);
 	}
 
-	async findById(id: number): Promise<IDepartment> {
+	async findById(id: number): Promise<IDepartmentResponse> {
 		return await this.departmentRepository.findById(id);
 	}
 
-	async update(department: IDepartment): Promise<IDepartment | null> {
+	async update(department: IDepartmentRequest): Promise<IDepartmentResponse | null> {
+		const departmentFounded = await this.findById(department.id!);
+		if (!departmentFounded) return null;
+
 		return await this.departmentRepository.update(department);
 	}
 

@@ -42,11 +42,13 @@ const swaggerConfig = {
 				$name: 'Engenharias',
 			},
 			DepartmentResponse: {
-				id: 1,
-				name: 'Engenharias',
-				professors: [],
-				createdAt: '2025-04-07 04:31:14',
-				updatedAt: '2025-04-07 04:33:50',
+				department: {
+					id: 1,
+					name: 'Engenharias',
+					professors: [],
+					createdAt: '2025-04-07 04:31:14',
+					updatedAt: '2025-04-07 04:33:50',
+				},
 			},
 			DepartmentListResponse: {
 				departments: [
@@ -60,40 +62,43 @@ const swaggerConfig = {
 				],
 			},
 			ProfessorRequest: {
-				$departmentId: 1,
 				$name: 'Paulo Fernandes',
 				$cpf: '73902748087',
+				$departmentId: 1,
 			},
 			ProfessorUpdateRequest: {
-				departmentId: 1,
+				id: 1,
 				name: 'Paulo Fernandes',
 				cpf: '73902748087',
+				departmentId: 1,
 			},
 			ProfessorResponse: {
-				id: 1,
-				department: {
+				professor: {
 					id: 1,
-					name: 'Engenharias',
+					name: 'Paulo Fernandes',
+					cpf: '73902748087',
+					department: {
+						id: 1,
+						name: 'Engenharias',
+						createdAt: '2025-04-07 04:31:14',
+						updatedAt: '2025-04-07 04:33:50',
+					},
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
-				name: 'Paulo Fernandes',
-				cpf: '73902748087',
-				createdAt: '2025-04-07 04:31:14',
-				updatedAt: '2025-04-07 04:33:50',
 			},
 			ProfessorListResponse: {
 				professors: [
 					{
 						id: 1,
+						name: 'Paulo Fernandes',
+						cpf: '73902748087',
 						department: {
 							id: 1,
 							name: 'Engenharias',
 							createdAt: '2025-04-07 04:31:14',
 							updatedAt: '2025-04-07 04:33:50',
 						},
-						name: 'Paulo Fernandes',
-						cpf: '73902748087',
 						createdAt: '2025-04-07 04:31:14',
 						updatedAt: '2025-04-07 04:33:50',
 					},

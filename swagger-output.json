@@ -54,11 +54,13 @@
         "tags": [
           "Course"
         ],
-        "description": "Finds all courses",
+        "description": "Finds all courses or finds courses that contains a name if a query parameter name is defined",
         "parameters": [
           {
             "name": "name",
             "in": "query",
+            "description": "",
+            "example": "Licenciatura em Física",
             "schema": {
               "type": "string"
             }
@@ -81,11 +83,13 @@
         "tags": [
           "Course"
         ],
-        "description": "Deletes all courses in batch",
+        "description": "Deletes all courses or deletes courses by its ids if a comma separated id list is provided",
         "parameters": [
           {
             "name": "ids",
             "in": "query",
+            "description": "",
+            "example": "1,2,3",
             "schema": {
               "type": "string"
             }
@@ -111,7 +115,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "",
+            "example": 1
           }
         ],
         "responses": {
@@ -142,7 +148,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "",
+            "example": 1
           }
         ],
         "responses": {
@@ -193,7 +201,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "",
+            "example": 1
           }
         ],
         "responses": {
@@ -256,11 +266,13 @@
         "tags": [
           "Department"
         ],
-        "description": "Finds all departments",
+        "description": "Finds all departments or finds departments that contains a name if a query parameter name is defined",
         "parameters": [
           {
             "name": "name",
             "in": "query",
+            "description": "",
+            "example": "ciências humanas",
             "schema": {
               "type": "string"
             }
@@ -283,11 +295,13 @@
         "tags": [
           "Department"
         ],
-        "description": "Deletes all departments in batch",
+        "description": "Deletes all departments or deletes departments by its ids if a comma separated id list is provided",
         "parameters": [
           {
             "name": "ids",
             "in": "query",
+            "description": "",
+            "example": "1,2,3",
             "schema": {
               "type": "string"
             }
@@ -313,7 +327,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "",
+            "example": 1
           }
         ],
         "responses": {
@@ -336,7 +352,7 @@
         "tags": [
           "Department"
         ],
-        "description": "Updates a department",
+        "description": "Updates a department by its id",
         "parameters": [
           {
             "name": "department_id",
@@ -344,7 +360,9 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "",
+            "example": 1
           }
         ],
         "responses": {
@@ -395,7 +413,253 @@
             "required": true,
             "schema": {
               "type": "string"
+            },
+            "description": "",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        }
+      }
+    },
+    "/professors": {
+      "post": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Creates a professor",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessorResponse"
+                }
+              }
+            },
+            "description": "Created"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Bad Request"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfessorRequest"
+              }
             }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Finds all professors or professors by name if a query parameter name is defined",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "description": "",
+            "example": "Paulo Menezes",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessorListResponse"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Deletes all professors or deletes professors by its ids if a comma separated id list is provided",
+        "parameters": [
+          {
+            "name": "ids",
+            "in": "query",
+            "description": "",
+            "example": "1,2,3",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          }
+        }
+      }
+    },
+    "/professors/{department_id}": {
+      "get": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Finds professors by department id",
+        "parameters": [
+          {
+            "name": "department_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessorListResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/professors/{professor_id}": {
+      "get": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Finds a professor by its id",
+        "parameters": [
+          {
+            "name": "professor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessorResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Updates a professor",
+        "parameters": [
+          {
+            "name": "professor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProfessorResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                }
+              }
+            },
+            "description": "Bad Request"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ProfessorRequest"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Professor"
+        ],
+        "description": "Deletes a professor by its id",
+        "parameters": [
+          {
+            "name": "professor_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "",
+            "example": 1
           }
         ],
         "responses": {
@@ -510,26 +774,31 @@
       "DepartmentResponse": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
-          "name": {
-            "type": "string",
-            "example": "Engenharias"
-          },
-          "professors": {
-            "type": "array",
-            "example": [],
-            "items": {}
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2025-04-07 04:31:14"
-          },
-          "updatedAt": {
-            "type": "string",
-            "example": "2025-04-07 04:33:50"
+          "department": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number",
+                "example": 1
+              },
+              "name": {
+                "type": "string",
+                "example": "Engenharias"
+              },
+              "professors": {
+                "type": "array",
+                "example": [],
+                "items": {}
+              },
+              "createdAt": {
+                "type": "string",
+                "example": "2025-04-07 04:31:14"
+              },
+              "updatedAt": {
+                "type": "string",
+                "example": "2025-04-07 04:33:50"
+              }
+            }
           }
         }
       },
@@ -570,10 +839,6 @@
       "ProfessorRequest": {
         "type": "object",
         "properties": {
-          "departmentId": {
-            "type": "number",
-            "example": 1
-          },
           "name": {
             "type": "string",
             "example": "Paulo Fernandes"
@@ -581,39 +846,43 @@
           "cpf": {
             "type": "string",
             "example": "73902748087"
+          },
+          "departmentId": {
+            "type": "number",
+            "example": 1
           }
         },
         "required": [
-          "departmentId",
           "name",
-          "cpf"
+          "cpf",
+          "departmentId"
         ]
       },
       "ProfessorUpdateRequest": {
-        "type": "object",
-        "properties": {
-          "departmentId": {
-            "type": "number",
-            "example": 1
-          },
-          "name": {
-            "type": "string",
-            "example": "Paulo Fernandes"
-          },
-          "cpf": {
-            "type": "string",
-            "example": "73902748087"
-          }
-        }
-      },
-      "ProfessorResponse": {
         "type": "object",
         "properties": {
           "id": {
             "type": "number",
             "example": 1
           },
-          "department": {
+          "name": {
+            "type": "string",
+            "example": "Paulo Fernandes"
+          },
+          "cpf": {
+            "type": "string",
+            "example": "73902748087"
+          },
+          "departmentId": {
+            "type": "number",
+            "example": 1
+          }
+        }
+      },
+      "ProfessorResponse": {
+        "type": "object",
+        "properties": {
+          "professor": {
             "type": "object",
             "properties": {
               "id": {
@@ -622,7 +891,32 @@
               },
               "name": {
                 "type": "string",
-                "example": "Engenharias"
+                "example": "Paulo Fernandes"
+              },
+              "cpf": {
+                "type": "string",
+                "example": "73902748087"
+              },
+              "department": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number",
+                    "example": 1
+                  },
+                  "name": {
+                    "type": "string",
+                    "example": "Engenharias"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:31:14"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "example": "2025-04-07 04:33:50"
+                  }
+                }
               },
               "createdAt": {
                 "type": "string",
@@ -633,22 +927,6 @@
                 "example": "2025-04-07 04:33:50"
               }
             }
-          },
-          "name": {
-            "type": "string",
-            "example": "Paulo Fernandes"
-          },
-          "cpf": {
-            "type": "string",
-            "example": "73902748087"
-          },
-          "createdAt": {
-            "type": "string",
-            "example": "2025-04-07 04:31:14"
-          },
-          "updatedAt": {
-            "type": "string",
-            "example": "2025-04-07 04:33:50"
           }
         }
       },
@@ -663,6 +941,14 @@
                 "id": {
                   "type": "number",
                   "example": 1
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Paulo Fernandes"
+                },
+                "cpf": {
+                  "type": "string",
+                  "example": "73902748087"
                 },
                 "department": {
                   "type": "object",
@@ -684,14 +970,6 @@
                       "example": "2025-04-07 04:33:50"
                     }
                   }
-                },
-                "name": {
-                  "type": "string",
-                  "example": "Paulo Fernandes"
-                },
-                "cpf": {
-                  "type": "string",
-                  "example": "73902748087"
                 },
                 "createdAt": {
                   "type": "string",

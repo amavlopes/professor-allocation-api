@@ -1,30 +1,34 @@
 import { injectable, inject } from 'tsyringe';
-import { ICourse } from '../interfaces/course';
-import { IRepository } from '../interfaces/repository';
+import { ICourseRequest } from '../interfaces/requests/course-request';
+import { ICourseResponse } from '../interfaces/response/course-response';
 import { IService } from '../interfaces/service';
+import { IRepository } from '../interfaces/repository';
 
 @injectable()
-export class CourseService implements IService<ICourse> {
+export class CourseService implements IService<ICourseRequest, ICourseResponse> {
 	constructor(
 		@inject('CourseRepository')
-		private courseRepository: IRepository<ICourse>
+		private courseRepository: IRepository<ICourseRequest, ICourseResponse>
 	) {}
 
-	async create(course: ICourse): Promise<ICourse> {
+	async create(course: ICourseRequest): Promise<ICourseResponse> {
 		return await this.courseRepository.create(course);
 	}
 
-	async findAll(name: string): Promise<ICourse[]> {
+	async findAll(name: string): Promise<ICourseResponse[]> {
 		if (!name) return await this.courseRepository.findAll();
 
 		return await this.courseRepository.findAllByName(name);
 	}
 
-	async findById(id: number): Promise<ICourse> {
+	async findById(id: number): Promise<ICourseResponse> {
 		return await this.courseRepository.findById(id);
 	}
 
-	async update(course: ICourse): Promise<ICourse | null> {
+	async update(course: ICourseRequest): Promise<ICourseResponse | null> {
+		const courseFounded = await this.findById(course.id!);
+		if (!courseFounded) return null;
+
 		return await this.courseRepository.update(course);
 	}
 
