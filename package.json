@@ -2,13 +2,16 @@
 	"name": "professor-allocation-prisma-nodejs",
 	"version": "1.0.0",
 	"main": "index.js",
+	"prisma": {
+		"seed": "npx tsx ./prisma/seed.ts"
+	},
 	"scripts": {
 		"start": "npx tsx watch --include ./src/** ./src/index.ts",
-		"prisma-create-db": "npx prisma migrate dev",
+		"prisma-create-db": "npx prisma migrate dev --skip-seed",
 		"prisma-generate": "npx prisma generate ",
 		"prisma-migrate": "npx prisma migrate dev --name process.env.name",
-		"prisma-seed": "npx prisma generate && npx tsx ./prisma/seeds/seed.ts",
-		"prisma-drop-db": "npx prisma migrate reset",
+		"prisma-seed": "npx prisma db seed",
+		"prisma-drop-db": "npx prisma migrate reset --skip-seed",
 		"swagger": "npx tsx watch --include ./src/** ./swagger.ts"
 	},
 	"author": "Amanda Avelino Lopes",
