@@ -15,7 +15,7 @@ const app = express();
 
 app.use(
 	cors({
-		origin: process.env.ENABLED_CORS?.split(';') || [],
+		origin: process.env.ENABLED_CORS?.split(',') || [],
 	})
 );
 app.use(express.urlencoded({ extended: true }));

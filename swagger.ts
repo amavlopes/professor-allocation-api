@@ -1,4 +1,3 @@
-// const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
 import swaggerAutogen from 'swagger-autogen';
 
 const swaggerConfig = {
@@ -10,7 +9,7 @@ const swaggerConfig = {
 	},
 	servers: [
 		{
-			url: 'http://localhost:3300',
+			url: 'http://localhost:7000',
 		},
 	],
 	components: {

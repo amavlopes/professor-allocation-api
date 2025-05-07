@@ -30,13 +30,13 @@ A API Alocação de professores tem como objetivo otimizar o processo de alocaç
 #### 1. Clone o projeto
 
 ```bash
-  git clone https://github.com/amavlopes/professor-allocation-prisma-nodejs.git
+  git clone https://github.com/amavlopes/professor-allocation-api.git
 ```
 
 #### 2. Entre no diretório do projeto
 
 ```bash
-  cd professor-allocation-prisma-nodejs
+  cd professor-allocation-api
 ```
 
 #### 3. Instale todas as dependências
@@ -88,13 +88,5 @@ DATABASE_URL="mysql://user:111111@localhost:3306/professor-allocation"
 ```
 
 ---
-
-## 📘 Notas
-
-#### Para resetar o banco de dados excluindo todos os registros execute o comando
-
-```bash
-  npm run prisma-drop-db
-```
 
 ⌨️ com ❤️ por [Amanda Avelino](https://github.com/amavlopes) 😊
