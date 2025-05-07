@@ -8,6 +8,7 @@ import swaggerFile from '../swagger-output.json';
 import courseRoutes from './app/routes/course-routes';
 import departmentRoutes from './app/routes/department-routes';
 import professorRoutes from './app/routes/professor-routes';
+import allocationRoutes from './app/routes/allocation-routes';
 import './shared/container';
 
 const app = express();
@@ -24,6 +25,7 @@ app.use(bodyParser.json());
 app.use(courseRoutes);
 app.use(departmentRoutes);
 app.use(professorRoutes);
+app.use(allocationRoutes);
 
 app.use('/docs', serve, setup(swaggerFile));
 

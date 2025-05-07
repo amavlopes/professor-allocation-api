@@ -16,7 +16,7 @@ export class ProfessorRepository implements IProfessorRepository {
 
 		const resultado = await this.prismaClient.professor.create({
 			data: { ...professor },
-			...this.returnQueryAndToggleIncludeAllocations(false),
+			...this.includeOmitAndToggleShowAllocations(false),
 		});
 
 		this.prismaClient.$disconnect();
@@ -28,7 +28,7 @@ export class ProfessorRepository implements IProfessorRepository {
 		this.prismaClient.$connect();
 
 		const resultado = await this.prismaClient.professor.findMany({
-			...this.returnQueryAndToggleIncludeAllocations(true),
+			...this.includeOmitAndToggleShowAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -43,7 +43,7 @@ export class ProfessorRepository implements IProfessorRepository {
 			where: {
 				name: { contains: query },
 			},
-			...this.returnQueryAndToggleIncludeAllocations(true),
+			...this.includeOmitAndToggleShowAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -58,7 +58,7 @@ export class ProfessorRepository implements IProfessorRepository {
 			where: {
 				departmentId,
 			},
-			...this.returnQueryAndToggleIncludeAllocations(true),
+			...this.includeOmitAndToggleShowAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -71,7 +71,7 @@ export class ProfessorRepository implements IProfessorRepository {
 
 		const resultado = await this.prismaClient.professor.findUnique({
 			where: { id },
-			...this.returnQueryAndToggleIncludeAllocations(true),
+			...this.includeOmitAndToggleShowAllocations(true),
 		});
 
 		this.prismaClient.$disconnect();
@@ -88,7 +88,7 @@ export class ProfessorRepository implements IProfessorRepository {
 		const resultado = await this.prismaClient.professor.update({
 			data: { ...professor },
 			where: { id },
-			...this.returnQueryAndToggleIncludeAllocations(false),
+			...this.includeOmitAndToggleShowAllocations(false),
 		});
 
 		this.prismaClient.$disconnect();
@@ -126,7 +126,7 @@ export class ProfessorRepository implements IProfessorRepository {
 		this.prismaClient.$disconnect();
 	}
 
-	private returnQueryAndToggleIncludeAllocations(includeAllocations?: boolean) {
+	private includeOmitAndToggleShowAllocations(includeAllocations?: boolean) {
 		const query = {
 			include: { department: true },
 			omit: { departmentId: true },

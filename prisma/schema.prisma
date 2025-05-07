@@ -50,8 +50,8 @@ model Professor {
 model Allocation {
   id          Int       @id @default(autoincrement())
   day         Int
-  startHour   DateTime
-  endHour     DateTime
+  startHour   String    @db.VarChar(5)
+  endHour     String    @db.VarChar(5)
   courseId    Int
   course      Course    @relation(fields: [courseId], references: [id])
   professorId Int

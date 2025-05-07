@@ -22,9 +22,9 @@ export class ProfessorController {
         }
       } 
     */
-		const name = request.body.name as string;
-		const cpf = request.body.cpf as string;
-		const departmentId = Number(request.body.departmentId as string);
+		const name = request.body.name;
+		const cpf = request.body.cpf;
+		const departmentId = Number(request.body.departmentId);
 
 		try {
 			const professorService = container.resolve(ProfessorService);
