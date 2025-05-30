@@ -25,55 +25,52 @@ A API Alocação de professores tem como objetivo otimizar o processo de alocaç
 
 ---
 
-## 🚀 Como executar o projeto
+## 🏃 Como executar o projeto
 
-#### 1. Clone o projeto
+#### 1. Clone o projeto:
 
 ```bash
   git clone https://github.com/amavlopes/professor-allocation-api.git
 ```
 
-#### 2. Entre no diretório do projeto
+#### 2. Entre no diretório do projeto:
 
 ```bash
   cd professor-allocation-api
 ```
 
-#### 3. Instale todas as dependências
+#### 3. Instale todas as dependências:
 
 ```bash
   npm install
 ```
 
-#### 4. Crie um arquivo .env na raiz do projeto e preencha com as informações necessárias
+#### 4. Configure as variáveis de ambiente
 
-##### Obs.: Utilize o arquivo .env-example como template
+##### Crie um arquivo .env com base no .env-example:
 
 ```bash
 APP_PORT = 7000
 
-# Listar todas as urls permitidas separadas por vírgula
-ENABLED_CORS = http://localhost:7000,http://localhost:7070
+ENABLED_CORS = http://localhost:7000,http://localhost:4200
 
-# Dados para a conexão com o banco de dados
-# mysql://<USER>:<PASSWORD>@<HOSTNAME>:<PORT>/<DATABASE_NAME>
-DATABASE_URL="mysql://user:111111@localhost:3306/professor-allocation"
+DATABASE_URL = mysql://usuario:senha@localhost:3306/nome_do_banco
 
 ```
 
-#### 5. Crie o banco de dados executando o comando
+#### 5. Crie o banco de dados executando o comando:
 
 ```bash
   npm run prisma-create-db
 ```
 
-##### 6. (Opcional) Para popular o banco de dados execute o comando
+#### 6. (Opcional) Para popular o banco de dados execute o comando:
 
 ```bash
   npm run prisma-seed
 ```
 
-#### 7. Inicie o servidor
+#### 7. Execute a aplicação:
 
 ```bash
   npm run start
@@ -81,10 +78,24 @@ DATABASE_URL="mysql://user:111111@localhost:3306/professor-allocation"
 
 ---
 
-## 📚 Documentação do Swagger
+## 🔍 Documentação do Swagger
+
+#### Após executar a API, acesse a documentação interativa:
 
 ```bash
   http://localhost:7000/docs
+```
+
+---
+
+## 🔄 Mantendo o banco atualizado
+
+#### Sempre que fizer alterações no arquivo prisma/schema.prisma:
+
+##### Crie e execute uma migration:
+
+```bash
+  npm run prisma-migrate -- [nome_da_migration]
 ```
 
 ---

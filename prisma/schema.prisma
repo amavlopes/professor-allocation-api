@@ -17,6 +17,7 @@ datasource db {
 model Course {
   id          Int          @id @default(autoincrement())
   name        String       @unique @db.VarChar(255)
+  description String?      @db.Text
   allocations Allocation[]
   createdAt   DateTime     @default(now())
   updatedAt   DateTime     @updatedAt
@@ -25,11 +26,12 @@ model Course {
 }
 
 model Department {
-  id         Int         @id @default(autoincrement())
-  name       String      @unique @db.VarChar(255)
-  professors Professor[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id          Int         @id @default(autoincrement())
+  name        String      @unique @db.VarChar(255)
+  description String?     @db.Text      
+  professors  Professor[]
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
 
   @@map("departments")
 }
@@ -37,7 +39,7 @@ model Department {
 model Professor {
   id           Int          @id @default(autoincrement())
   name         String       @db.VarChar(255)
-  cpf          String       @unique
+  cpf          String       @unique @db.Char(11)
   departmentId Int
   department   Department   @relation(fields: [departmentId], references: [id])
   allocations  Allocation[]

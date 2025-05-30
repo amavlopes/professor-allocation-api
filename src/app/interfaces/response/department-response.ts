@@ -1,6 +1,7 @@
 export interface IDepartmentResponse {
 	id: number;
 	name: string;
+	description: string;
 	professors?: Array<{
 		id: number;
 		name: string;

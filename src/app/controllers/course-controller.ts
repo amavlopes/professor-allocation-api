@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
 import { CourseService } from '../services/course-service';
+import { ICourseRequest } from '../interfaces/requests/course-request';
 
 export class CourseController {
 	static async create(request: Request, response: Response): Promise<void> {
@@ -23,10 +24,12 @@ export class CourseController {
       } 
     */
 		const name = request.body.name as string;
+		const description = request.body.description as string;
+		const courseRequest: ICourseRequest = { name, description };
 
 		try {
 			const courseService = container.resolve(CourseService);
-			const course = await courseService.create({ name });
+			const course = await courseService.create(courseRequest);
 
 			/*  
         #swagger.responses[201] = {
@@ -41,6 +44,10 @@ export class CourseController {
       */
 			response.status(HttpStatusEnum.CREATED).json({ course });
 		} catch (e: any) {
+			let message = e.message;
+
+			if (e.code === 'P2002') message = `O curso ${name} já existe`;
+
 			/*  
         #swagger.responses[400] = {
             content: {
@@ -52,7 +59,7 @@ export class CourseController {
             }
         }   
       */
-			response.status(HttpStatusEnum.BAD_REQUEST).json(new ErrorResponse(HttpStatusEnum.BAD_REQUEST, e.message, e));
+			response.status(HttpStatusEnum.BAD_REQUEST).json(new ErrorResponse(HttpStatusEnum.BAD_REQUEST, message, e));
 		}
 	}
 
@@ -161,10 +168,12 @@ export class CourseController {
 		*/
 
 		const name = request.body.name as string;
+		const description = request.body.description as string;
+		const courseRequest: ICourseRequest = { id, name, description };
 
 		try {
 			const courseService = container.resolve(CourseService);
-			const course = await courseService.update({ id, name });
+			const course = await courseService.update(courseRequest);
 
 			/*  
         #swagger.responses[404] = {

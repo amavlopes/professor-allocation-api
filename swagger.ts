@@ -16,11 +16,13 @@ const swaggerConfig = {
 		schemas: {
 			CourseRequest: {
 				$name: 'Engenharia da Computação',
+				description: 'O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware',
 			},
 			CourseCreateResponse: {
 				course: {
 					id: 1,
 					name: 'Engenharia da Computação',
+					description: 'O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware',
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
@@ -29,6 +31,7 @@ const swaggerConfig = {
 				course: {
 					id: 1,
 					name: 'Engenharia da Computação',
+					description: 'O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware',
 					allocations: [
 						{
 							id: 1,
@@ -49,6 +52,8 @@ const swaggerConfig = {
 					{
 						id: 1,
 						name: 'Engenharia da Computação',
+						description:
+							'O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware',
 						allocations: [
 							{
 								id: 1,
@@ -67,11 +72,13 @@ const swaggerConfig = {
 			},
 			DepartmentRequest: {
 				$name: 'Engenharias',
+				description: '',
 			},
 			DepartmentCreateResponse: {
 				department: {
 					id: 1,
 					name: 'Engenharias',
+					description: '',
 					createdAt: '2025-04-07 04:31:14',
 					updatedAt: '2025-04-07 04:33:50',
 				},
@@ -80,6 +87,7 @@ const swaggerConfig = {
 				department: {
 					id: 1,
 					name: 'Engenharias',
+					description: '',
 					professors: [
 						{
 							id: 1,
@@ -98,6 +106,7 @@ const swaggerConfig = {
 					{
 						id: 1,
 						name: 'Engenharias',
+						description: '',
 						professors: [
 							{
 								id: 1,

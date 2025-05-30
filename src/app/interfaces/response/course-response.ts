@@ -1,6 +1,7 @@
 export interface ICourseResponse {
 	id: number;
 	name: string;
+	description: string;
 	allocations?: Array<{
 		id: number;
 		day: string;

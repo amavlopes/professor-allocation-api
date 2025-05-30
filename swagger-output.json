@@ -953,6 +953,10 @@
           "name": {
             "type": "string",
             "example": "Engenharia da Computação"
+          },
+          "description": {
+            "type": "string",
+            "example": "O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware"
           }
         },
         "required": [
@@ -972,6 +976,10 @@
               "name": {
                 "type": "string",
                 "example": "Engenharia da Computação"
+              },
+              "description": {
+                "type": "string",
+                "example": "O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware"
               },
               "createdAt": {
                 "type": "string",
@@ -998,6 +1006,10 @@
               "name": {
                 "type": "string",
                 "example": "Engenharia da Computação"
+              },
+              "description": {
+                "type": "string",
+                "example": "O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware"
               },
               "allocations": {
                 "type": "array",
@@ -1063,6 +1075,10 @@
                   "type": "string",
                   "example": "Engenharia da Computação"
                 },
+                "description": {
+                  "type": "string",
+                  "example": "O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware"
+                },
                 "allocations": {
                   "type": "array",
                   "items": {
@@ -1118,6 +1134,10 @@
           "name": {
             "type": "string",
             "example": "Engenharias"
+          },
+          "description": {
+            "type": "string",
+            "example": ""
           }
         },
         "required": [
@@ -1137,6 +1157,10 @@
               "name": {
                 "type": "string",
                 "example": "Engenharias"
+              },
+              "description": {
+                "type": "string",
+                "example": ""
               },
               "createdAt": {
                 "type": "string",
@@ -1163,6 +1187,10 @@
               "name": {
                 "type": "string",
                 "example": "Engenharias"
+              },
+              "description": {
+                "type": "string",
+                "example": ""
               },
               "professors": {
                 "type": "array",
@@ -1219,6 +1247,10 @@
                 "name": {
                   "type": "string",
                   "example": "Engenharias"
+                },
+                "description": {
+                  "type": "string",
+                  "example": ""
                 },
                 "professors": {
                   "type": "array",

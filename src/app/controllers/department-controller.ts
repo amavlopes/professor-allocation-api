@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
 import { DepartmentService } from '../services/department-service';
+import { IDepartmentRequest } from '../interfaces/requests/department-request';
 
 export class DepartmentController {
 	static async create(request: Request, response: Response): Promise<void> {
@@ -23,10 +24,12 @@ export class DepartmentController {
 			} 
 		*/
 		const name = request.body.name as string;
+		const description = request.body.description as string;
+		const departmentRequest: IDepartmentRequest = { name, description };
 
 		try {
 			const departmentService = container.resolve(DepartmentService);
-			const department = await departmentService.create({ name });
+			const department = await departmentService.create(departmentRequest);
 
 			/*  
 				#swagger.responses[201] = {
@@ -161,10 +164,12 @@ export class DepartmentController {
 		*/
 
 		const name = request.body.name as string;
+		const description = request.body.description as string;
+		const departmentRequest: IDepartmentRequest = { id, name, description };
 
 		try {
 			const departmentService = container.resolve(DepartmentService);
-			const department = await departmentService.update({ id, name });
+			const department = await departmentService.update(departmentRequest);
 
 			/*  
 				#swagger.responses[404] = {
