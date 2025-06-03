@@ -3,6 +3,8 @@ import { PrismaClient } from '@prisma/client';
 import { IAllocationRequest } from '../interfaces/requests/allocation-request';
 import { IAllocationResponse } from '../interfaces/response/allocation-response';
 import { IAllocationRepository } from '../interfaces/allocation-repository';
+import { IAllocationParams } from '../interfaces/allocation-params';
+import { equal } from 'assert';
 
 @injectable()
 export class AllocationRepository implements IAllocationRepository {
@@ -16,7 +18,14 @@ export class AllocationRepository implements IAllocationRepository {
 
 		const resultado = await this.prismaClient.allocation.create({
 			data: { ...allocation },
-			...this.includeAndOmitAttributes(),
+			include: {
+				course: true,
+				professor: true,
+			},
+			omit: {
+				courseId: true,
+				professorId: true,
+			},
 		});
 
 		this.prismaClient.$disconnect();
@@ -24,11 +33,50 @@ export class AllocationRepository implements IAllocationRepository {
 		return resultado;
 	}
 
-	async findAll(): Promise<IAllocationResponse[]> {
+	async hasConflictingSchedules(allocation: IAllocationRequest): Promise<boolean> {
+		this.prismaClient.$connect();
+
+		const resultados = await this.prismaClient.allocation.findMany({
+			where: {
+				day: allocation.day,
+				AND: [
+					{
+						OR: [{ professorId: allocation.professorId }, { courseId: allocation.courseId }],
+					},
+					{
+						startHour: { lt: allocation.endHour },
+					},
+					{
+						endHour: { gt: allocation.startHour },
+					},
+				],
+			},
+		});
+
+		this.prismaClient.$disconnect();
+
+		return resultados.length > 0;
+	}
+
+	async findAll(params: IAllocationParams): Promise<IAllocationResponse[]> {
 		this.prismaClient.$connect();
 
 		const resultado = await this.prismaClient.allocation.findMany({
-			...this.includeAndOmitAttributes(),
+			where: {
+				...(params.day && { day: { contains: params.day } }),
+				...(params.startHour && { startHour: { contains: params.startHour } }),
+				...(params.endHour && { endHour: { contains: params.endHour } }),
+				...(params.courseId && { courseId: { contains: params.courseId } }),
+				...(params.professorId && { professorId: { contains: params.professorId } }),
+			},
+			include: {
+				course: true,
+				professor: true,
+			},
+			omit: {
+				courseId: true,
+				professorId: true,
+			},
 		});
 
 		this.prismaClient.$disconnect();
@@ -43,7 +91,14 @@ export class AllocationRepository implements IAllocationRepository {
 			where: {
 				courseId,
 			},
-			...this.includeAndOmitAttributes(),
+			include: {
+				course: true,
+				professor: true,
+			},
+			omit: {
+				courseId: true,
+				professorId: true,
+			},
 		});
 
 		this.prismaClient.$disconnect();
@@ -58,7 +113,14 @@ export class AllocationRepository implements IAllocationRepository {
 			where: {
 				professorId,
 			},
-			...this.includeAndOmitAttributes(),
+			include: {
+				course: true,
+				professor: true,
+			},
+			omit: {
+				courseId: true,
+				professorId: true,
+			},
 		});
 
 		this.prismaClient.$disconnect();
@@ -71,7 +133,14 @@ export class AllocationRepository implements IAllocationRepository {
 
 		const resultado = await this.prismaClient.allocation.findUnique({
 			where: { id },
-			...this.includeAndOmitAttributes(),
+			include: {
+				course: true,
+				professor: true,
+			},
+			omit: {
+				courseId: true,
+				professorId: true,
+			},
 		});
 
 		this.prismaClient.$disconnect();
@@ -88,7 +157,14 @@ export class AllocationRepository implements IAllocationRepository {
 		const resultado = await this.prismaClient.allocation.update({
 			data: { ...allocation },
 			where: { id },
-			...this.includeAndOmitAttributes(),
+			include: {
+				course: true,
+				professor: true,
+			},
+			omit: {
+				courseId: true,
+				professorId: true,
+			},
 		});
 
 		this.prismaClient.$disconnect();
@@ -124,18 +200,5 @@ export class AllocationRepository implements IAllocationRepository {
 		});
 
 		this.prismaClient.$disconnect();
-	}
-
-	private includeAndOmitAttributes() {
-		return {
-			include: {
-				course: true,
-				professor: true,
-			},
-			omit: {
-				courseId: true,
-				professorId: true,
-			},
-		};
 	}
 }

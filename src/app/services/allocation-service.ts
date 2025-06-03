@@ -3,6 +3,7 @@ import { IAllocationRequest } from '../interfaces/requests/allocation-request';
 import { IAllocationResponse } from '../interfaces/response/allocation-response';
 import { IAllocationService } from '../interfaces/allocation-service';
 import { IAllocationRepository } from '../interfaces/allocation-repository';
+import { IAllocationParams } from '../interfaces/allocation-params';
 
 @injectable()
 export class AllocationService implements IAllocationService {
@@ -12,11 +13,13 @@ export class AllocationService implements IAllocationService {
 	) {}
 
 	async create(allocation: IAllocationRequest): Promise<IAllocationResponse> {
+		if (await this.allocationRepository.hasConflictingSchedules(allocation)) throw new Error(`Existe um conflito de horário com outra alocação no mesmo dia para este professor ou curso.`);
+
 		return await this.allocationRepository.create(allocation);
 	}
 
-	async findAll(): Promise<IAllocationResponse[]> {
-		return await this.allocationRepository.findAll();
+	async findAll(params: IAllocationParams): Promise<IAllocationResponse[]> {
+		return await this.allocationRepository.findAll(params);
 	}
 
 	async findAllByCourse(courseId: number): Promise<IAllocationResponse[]> {

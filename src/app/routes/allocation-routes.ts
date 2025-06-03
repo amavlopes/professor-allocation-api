@@ -5,11 +5,11 @@ const router = express.Router();
 
 router.post('/allocations', AllocationController.create);
 router.get('/allocations', AllocationController.findAll);
-router.get('/allocations/course/:course_id', AllocationController.findAllByCourse);
-router.get('/allocations/professor/:professor_id', AllocationController.findAllByProfessor);
-router.get('/allocations/:allocation_id', AllocationController.findById);
-router.put('/allocations/:allocation_id', AllocationController.update);
+router.get('/allocations/course/:courseId', AllocationController.findAllByCourse);
+router.get('/allocations/professor/:professorId', AllocationController.findAllByProfessor);
+router.get('/allocations/:allocationId', AllocationController.findById);
+router.put('/allocations/:allocationId', AllocationController.update);
 router.delete('/allocations', AllocationController.deleteAll);
-router.delete('/allocations/:allocation_id', AllocationController.deleteById);
+router.delete('/allocations/:allocationId', AllocationController.deleteById);
 
 export default router;

@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
 import { AllocationService } from '../services/allocation-service';
+import { IAllocationParams } from '../interfaces/allocation-params';
 
 export class AllocationController {
 	static async create(request: Request, response: Response): Promise<void> {
@@ -66,8 +67,63 @@ export class AllocationController {
       #swagger.description = 'Finds all allocations'
     */
 
+		const day = (request.query.day as string) ? Number(request.query.day) : undefined;
+		/*  
+			#swagger.parameters['day'] = {
+				in: 'query',
+				description: '',
+				type: 'number',
+				example: '1'
+			} 
+		*/
+		const startHour = request.query.startHour as string;
+		/*  
+			#swagger.parameters['startHour'] = {
+				in: 'query',
+				description: '',
+				type: 'string',
+				example: '08:00'
+			} 
+		*/
+		const endHour = request.query.endHour as string;
+		/*  
+			#swagger.parameters['endHour'] = {
+				in: 'query',
+				description: '',
+				type: 'string',
+				example: '10:00'
+			} 
+		*/
+		const courseId = (request.query.courseId as string) ? Number(request.query.courseId) : undefined;
+		/*  
+			#swagger.parameters['courseId'] = {
+				in: 'query',
+				description: '',
+				type: 'number',
+				example: '1'
+			} 
+		*/
+
+		const professorId = (request.query.professorId as string) ? Number(request.query.professorId) : undefined;
+		/*  
+			#swagger.parameters['professorId'] = {
+				in: 'query',
+				description: '',
+				type: 'number',
+				example: '1'
+			} 
+		*/
+
+		const parametros: IAllocationParams = {
+			day,
+			startHour,
+			endHour,
+			courseId,
+			professorId,
+		};
+
 		const allocationService = container.resolve(AllocationService);
-		const allocations = await allocationService.findAll();
+		const allocations = await allocationService.findAll(parametros);
 
 		/*  
       #swagger.responses[200] = {
@@ -90,9 +146,9 @@ export class AllocationController {
       #swagger.description = 'Finds allocations by course id'
     */
 
-		const courseId = Number(request.params.course_id);
+		const courseId = Number(request.params.courseId);
 		/*  
-      #swagger.parameters['course_id'] = {
+      #swagger.parameters['courseId'] = {
         in: 'path',
         description: '',
         type: 'number',
@@ -124,9 +180,9 @@ export class AllocationController {
       #swagger.description = 'Finds allocations by professor id'
     */
 
-		const professorId = Number(request.params.professor_id);
+		const professorId = Number(request.params.professorId);
 		/*  
-      #swagger.parameters['professor_id'] = {
+      #swagger.parameters['professorId'] = {
         in: 'path',
         description: '',
         type: 'number',
@@ -158,10 +214,10 @@ export class AllocationController {
       #swagger.description = 'Finds an allocation by its id'
     */
 
-		const { allocation_id } = request.params;
-		const id = Number(allocation_id);
+		const { allocationId } = request.params;
+		const id = Number(allocationId);
 		/*  
-      #swagger.parameters['allocation_id'] = {
+      #swagger.parameters['allocationId'] = {
         in: 'path',
         description: '',
         type: 'number',
@@ -211,9 +267,9 @@ export class AllocationController {
         }
       } 
     */
-		const id = Number(request.params.allocation_id);
+		const id = Number(request.params.allocationId);
 		/*  
-      #swagger.parameters['allocation_id'] = {
+      #swagger.parameters['allocationId'] = {
         in: 'path',
         description: '',
         type: 'number',
@@ -303,10 +359,10 @@ export class AllocationController {
       #swagger.description = 'Deletes an allocation by its id'
     */
 
-		const { allocation_id } = request.params;
-		const id = Number(allocation_id);
+		const { allocationId } = request.params;
+		const id = Number(allocationId);
 		/*  
-      #swagger.parameters['allocation_id'] = {
+      #swagger.parameters['allocationId'] = {
         in: 'path',
         description: '',
         type: 'number',
