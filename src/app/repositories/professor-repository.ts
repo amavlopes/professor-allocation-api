@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { IProfessorRequest } from '../interfaces/requests/professor-request';
 import { IProfessorResponse } from '../interfaces/response/professor-response';
 import { IProfessorRepository } from '../interfaces/professor-repository';
+import { IProfessorParams } from '../interfaces/professor-params';
 
 @injectable()
 export class ProfessorRepository implements IProfessorRepository {
@@ -16,7 +17,8 @@ export class ProfessorRepository implements IProfessorRepository {
 
 		const resultado = await this.prismaClient.professor.create({
 			data: { ...professor },
-			...this.includeOmitAndToggleShowAllocations(false),
+			include: { department: true },
+			omit: { departmentId: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -24,26 +26,16 @@ export class ProfessorRepository implements IProfessorRepository {
 		return resultado;
 	}
 
-	async findAll(): Promise<IProfessorResponse[]> {
-		this.prismaClient.$connect();
-
-		const resultado = await this.prismaClient.professor.findMany({
-			...this.includeOmitAndToggleShowAllocations(true),
-		});
-
-		this.prismaClient.$disconnect();
-
-		return resultado;
-	}
-
-	async findAllByName(query: string): Promise<IProfessorResponse[]> {
+	async findAll(params: IProfessorParams): Promise<IProfessorResponse[]> {
 		this.prismaClient.$connect();
 
 		const resultado = await this.prismaClient.professor.findMany({
 			where: {
-				name: { contains: query },
+				...(params.name && { name: { contains: params.name } }),
+				...(params.departmentId && { departmentId: params.departmentId }),
 			},
-			...this.includeOmitAndToggleShowAllocations(true),
+			include: { department: true },
+			omit: { departmentId: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -58,7 +50,8 @@ export class ProfessorRepository implements IProfessorRepository {
 			where: {
 				departmentId,
 			},
-			...this.includeOmitAndToggleShowAllocations(true),
+			include: { department: true },
+			omit: { departmentId: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -71,7 +64,8 @@ export class ProfessorRepository implements IProfessorRepository {
 
 		const resultado = await this.prismaClient.professor.findUnique({
 			where: { id },
-			...this.includeOmitAndToggleShowAllocations(true),
+			include: { department: true },
+			omit: { departmentId: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -88,7 +82,8 @@ export class ProfessorRepository implements IProfessorRepository {
 		const resultado = await this.prismaClient.professor.update({
 			data: { ...professor },
 			where: { id },
-			...this.includeOmitAndToggleShowAllocations(false),
+			include: { department: true },
+			omit: { departmentId: true },
 		});
 
 		this.prismaClient.$disconnect();
@@ -124,31 +119,5 @@ export class ProfessorRepository implements IProfessorRepository {
 		});
 
 		this.prismaClient.$disconnect();
-	}
-
-	private includeOmitAndToggleShowAllocations(includeAllocations?: boolean) {
-		const query = {
-			include: { department: true },
-			omit: { departmentId: true },
-		};
-
-		if (includeAllocations) {
-			query.include = {
-				...query.include,
-				...this.includeAllocationsAndOmitAttributes(),
-			};
-		}
-
-		return query;
-	}
-
-	private includeAllocationsAndOmitAttributes() {
-		return {
-			allocations: {
-				omit: {
-					professorId: true,
-				},
-			},
-		};
 	}
 }

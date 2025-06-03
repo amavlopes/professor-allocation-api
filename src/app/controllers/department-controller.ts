@@ -4,6 +4,7 @@ import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
 import { DepartmentService } from '../services/department-service';
 import { IDepartmentRequest } from '../interfaces/requests/department-request';
+import { IDepartmentParams } from '../interfaces/department-params';
 
 export class DepartmentController {
 	static async create(request: Request, response: Response): Promise<void> {
@@ -75,8 +76,12 @@ export class DepartmentController {
 			} 
 		*/
 
+		const params: IDepartmentParams = {
+			name,
+		};
+
 		const departmentService = container.resolve(DepartmentService);
-		const departments = await departmentService.findAll(name);
+		const departments = await departmentService.findAll(params);
 
 		/*  
 			#swagger.responses[200] = {
@@ -99,10 +104,10 @@ export class DepartmentController {
 			#swagger.description = 'Finds a department by its id'
 		*/
 
-		const { department_id } = request.params;
-		const id = Number(department_id);
+		const { departmentId } = request.params;
+		const id = Number(departmentId);
 		/*  
-			#swagger.parameters['department_id'] = {
+			#swagger.parameters['departmentId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -111,7 +116,7 @@ export class DepartmentController {
 		*/
 
 		const departmentService = container.resolve(DepartmentService);
-		const department = await departmentService.findById(id);
+		const department = await departmentService.findById(Number(id));
 
 		/*  
 			#swagger.responses[404] = {
@@ -152,10 +157,10 @@ export class DepartmentController {
 				}
 			} 
 		*/
-		const { department_id } = request.params;
-		const id = Number(department_id);
+		const { departmentId } = request.params;
+		const id = Number(departmentId);
 		/*  
-			#swagger.parameters['department_id'] = {
+			#swagger.parameters['departmentId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -241,10 +246,10 @@ export class DepartmentController {
 			#swagger.description = 'Deletes a department by its id'
 		*/
 
-		const { department_id } = request.params;
-		const id = Number(department_id);
+		const { departmentId } = request.params;
+		const id = Number(departmentId);
 		/*  
-			#swagger.parameters['department_id'] = {
+			#swagger.parameters['departmentId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',

@@ -3,6 +3,7 @@ import { ICourseRequest } from '../interfaces/requests/course-request';
 import { ICourseResponse } from '../interfaces/response/course-response';
 import { IService } from '../interfaces/service';
 import { IRepository } from '../interfaces/repository';
+import { ICourseParams } from '../interfaces/course-params';
 
 @injectable()
 export class CourseService implements IService<ICourseRequest, ICourseResponse> {
@@ -15,10 +16,8 @@ export class CourseService implements IService<ICourseRequest, ICourseResponse> 
 		return await this.courseRepository.create(course);
 	}
 
-	async findAll(name: string): Promise<ICourseResponse[]> {
-		if (!name) return await this.courseRepository.findAll();
-
-		return await this.courseRepository.findAllByName(name);
+	async findAll(params: ICourseParams): Promise<ICourseResponse[]> {
+		return await this.courseRepository.findAll(params);
 	}
 
 	async findById(id: number): Promise<ICourseResponse> {

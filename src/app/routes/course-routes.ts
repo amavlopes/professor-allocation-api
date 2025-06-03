@@ -5,9 +5,9 @@ const router = express.Router();
 
 router.post('/courses', CourseController.create);
 router.get('/courses', CourseController.findAll);
-router.get('/courses/:course_id', CourseController.findById);
-router.put('/courses/:course_id', CourseController.update);
+router.get('/courses/:courseId', CourseController.findById);
+router.put('/courses/:courseId', CourseController.update);
 router.delete('/courses', CourseController.deleteAll);
-router.delete('/courses/:course_id', CourseController.deleteById);
+router.delete('/courses/:courseId', CourseController.deleteById);
 
 export default router;

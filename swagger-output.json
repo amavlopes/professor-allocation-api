@@ -102,7 +102,7 @@
         }
       }
     },
-    "/courses/{course_id}": {
+    "/courses/{courseId}": {
       "get": {
         "tags": [
           "Course"
@@ -110,7 +110,7 @@
         "description": "Finds a course by its id",
         "parameters": [
           {
-            "name": "course_id",
+            "name": "courseId",
             "in": "path",
             "required": true,
             "schema": {
@@ -143,7 +143,7 @@
         "description": "Updates a course",
         "parameters": [
           {
-            "name": "course_id",
+            "name": "courseId",
             "in": "path",
             "required": true,
             "schema": {
@@ -196,7 +196,7 @@
         "description": "Deletes a course by its id",
         "parameters": [
           {
-            "name": "course_id",
+            "name": "courseId",
             "in": "path",
             "required": true,
             "schema": {
@@ -314,7 +314,7 @@
         }
       }
     },
-    "/departments/{department_id}": {
+    "/departments/{departmentId}": {
       "get": {
         "tags": [
           "Department"
@@ -322,7 +322,7 @@
         "description": "Finds a department by its id",
         "parameters": [
           {
-            "name": "department_id",
+            "name": "departmentId",
             "in": "path",
             "required": true,
             "schema": {
@@ -355,7 +355,7 @@
         "description": "Updates a department by its id",
         "parameters": [
           {
-            "name": "department_id",
+            "name": "departmentId",
             "in": "path",
             "required": true,
             "schema": {
@@ -408,7 +408,7 @@
         "description": "Deletes a department by its id",
         "parameters": [
           {
-            "name": "department_id",
+            "name": "departmentId",
             "in": "path",
             "required": true,
             "schema": {
@@ -488,6 +488,15 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "departmentId",
+            "in": "query",
+            "description": "Id do departamento",
+            "example": "1",
+            "schema": {
+              "type": "number"
+            }
           }
         ],
         "responses": {
@@ -526,7 +535,7 @@
         }
       }
     },
-    "/professors/department/{department_id}": {
+    "/professors/department/{departmentId}": {
       "get": {
         "tags": [
           "Professor"
@@ -534,7 +543,7 @@
         "description": "Finds professors by department id",
         "parameters": [
           {
-            "name": "department_id",
+            "name": "departmentId",
             "in": "path",
             "required": true,
             "schema": {
@@ -558,7 +567,7 @@
         }
       }
     },
-    "/professors/{professor_id}": {
+    "/professors/{professorId}": {
       "get": {
         "tags": [
           "Professor"
@@ -566,7 +575,7 @@
         "description": "Finds a professor by its id",
         "parameters": [
           {
-            "name": "professor_id",
+            "name": "professorId",
             "in": "path",
             "required": true,
             "schema": {
@@ -599,7 +608,7 @@
         "description": "Updates a professor",
         "parameters": [
           {
-            "name": "professor_id",
+            "name": "professorId",
             "in": "path",
             "required": true,
             "schema": {
@@ -652,7 +661,7 @@
         "description": "Deletes a professor by its id",
         "parameters": [
           {
-            "name": "professor_id",
+            "name": "professorId",
             "in": "path",
             "required": true,
             "schema": {
@@ -723,6 +732,53 @@
           "Allocation"
         ],
         "description": "Finds all allocations",
+        "parameters": [
+          {
+            "name": "day",
+            "in": "query",
+            "description": "",
+            "example": "1",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "startHour",
+            "in": "query",
+            "description": "",
+            "example": "08:00",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "endHour",
+            "in": "query",
+            "description": "",
+            "example": "10:00",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "courseId",
+            "in": "query",
+            "description": "",
+            "example": "1",
+            "schema": {
+              "type": "number"
+            }
+          },
+          {
+            "name": "professorId",
+            "in": "query",
+            "description": "",
+            "example": "1",
+            "schema": {
+              "type": "number"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",
@@ -759,7 +815,7 @@
         }
       }
     },
-    "/allocations/course/{course_id}": {
+    "/allocations/course/{courseId}": {
       "get": {
         "tags": [
           "Allocation"
@@ -767,7 +823,7 @@
         "description": "Finds allocations by course id",
         "parameters": [
           {
-            "name": "course_id",
+            "name": "courseId",
             "in": "path",
             "required": true,
             "schema": {
@@ -791,7 +847,7 @@
         }
       }
     },
-    "/allocations/professor/{professor_id}": {
+    "/allocations/professor/{professorId}": {
       "get": {
         "tags": [
           "Allocation"
@@ -799,7 +855,7 @@
         "description": "Finds allocations by professor id",
         "parameters": [
           {
-            "name": "professor_id",
+            "name": "professorId",
             "in": "path",
             "required": true,
             "schema": {
@@ -823,7 +879,7 @@
         }
       }
     },
-    "/allocations/{allocation_id}": {
+    "/allocations/{allocationId}": {
       "get": {
         "tags": [
           "Allocation"
@@ -831,7 +887,7 @@
         "description": "Finds an allocation by its id",
         "parameters": [
           {
-            "name": "allocation_id",
+            "name": "allocationId",
             "in": "path",
             "required": true,
             "schema": {
@@ -864,7 +920,7 @@
         "description": "Updates an allocation",
         "parameters": [
           {
-            "name": "allocation_id",
+            "name": "allocationId",
             "in": "path",
             "required": true,
             "schema": {
@@ -917,7 +973,7 @@
         "description": "Deletes an allocation by its id",
         "parameters": [
           {
-            "name": "allocation_id",
+            "name": "allocationId",
             "in": "path",
             "required": true,
             "schema": {
@@ -1011,42 +1067,6 @@
                 "type": "string",
                 "example": "O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware"
               },
-              "allocations": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "day": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "startHour": {
-                      "type": "string",
-                      "example": "08:00"
-                    },
-                    "endHour": {
-                      "type": "string",
-                      "example": "10:00"
-                    },
-                    "professsorId": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2025-04-07 04:31:14"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "example": "2025-04-07 04:33:50"
-                    }
-                  }
-                }
-              },
               "createdAt": {
                 "type": "string",
                 "example": "2025-04-07 04:31:14"
@@ -1078,42 +1098,6 @@
                 "description": {
                   "type": "string",
                   "example": "O curso de Engenharia da Computação forma profissionais para elaborar sistemas que envolvam o uso do computador em conjunto com sistemas de controle, comunicações ou hardware"
-                },
-                "allocations": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "day": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "startHour": {
-                        "type": "string",
-                        "example": "08:00"
-                      },
-                      "endHour": {
-                        "type": "string",
-                        "example": "10:00"
-                      },
-                      "professsorId": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "example": "2025-04-07 04:31:14"
-                      },
-                      "updatedAt": {
-                        "type": "string",
-                        "example": "2025-04-07 04:33:50"
-                      }
-                    }
-                  }
                 },
                 "createdAt": {
                   "type": "string",
@@ -1192,34 +1176,6 @@
                 "type": "string",
                 "example": ""
               },
-              "professors": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "name": {
-                      "type": "string",
-                      "example": "Paulo Fernandes"
-                    },
-                    "cpf": {
-                      "type": "string",
-                      "example": "73902748087"
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2025-04-07 04:31:14"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "example": "2025-04-07 04:33:50"
-                    }
-                  }
-                }
-              },
               "createdAt": {
                 "type": "string",
                 "example": "2025-04-07 04:31:14"
@@ -1251,34 +1207,6 @@
                 "description": {
                   "type": "string",
                   "example": ""
-                },
-                "professors": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "name": {
-                        "type": "string",
-                        "example": "Paulo Fernandes"
-                      },
-                      "cpf": {
-                        "type": "string",
-                        "example": "73902748087"
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "example": "2025-04-07 04:31:14"
-                      },
-                      "updatedAt": {
-                        "type": "string",
-                        "example": "2025-04-07 04:33:50"
-                      }
-                    }
-                  }
                 },
                 "createdAt": {
                   "type": "string",
@@ -1422,42 +1350,6 @@
                   }
                 }
               },
-              "allocations": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "day": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "startHour": {
-                      "type": "string",
-                      "example": "08:00"
-                    },
-                    "endHour": {
-                      "type": "string",
-                      "example": "10:00"
-                    },
-                    "courseId": {
-                      "type": "number",
-                      "example": 1
-                    },
-                    "createdAt": {
-                      "type": "string",
-                      "example": "2025-04-07 04:31:14"
-                    },
-                    "updatedAt": {
-                      "type": "string",
-                      "example": "2025-04-07 04:33:50"
-                    }
-                  }
-                }
-              },
               "createdAt": {
                 "type": "string",
                 "example": "2025-04-07 04:31:14"
@@ -1508,42 +1400,6 @@
                     "updatedAt": {
                       "type": "string",
                       "example": "2025-04-07 04:33:50"
-                    }
-                  }
-                },
-                "allocations": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "day": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "startHour": {
-                        "type": "string",
-                        "example": "08:00"
-                      },
-                      "endHour": {
-                        "type": "string",
-                        "example": "10:00"
-                      },
-                      "courseId": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "createdAt": {
-                        "type": "string",
-                        "example": "2025-04-07 04:31:14"
-                      },
-                      "updatedAt": {
-                        "type": "string",
-                        "example": "2025-04-07 04:33:50"
-                      }
                     }
                   }
                 },

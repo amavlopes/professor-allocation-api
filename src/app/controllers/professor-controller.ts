@@ -3,6 +3,7 @@ import { container } from 'tsyringe';
 import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
 import { ProfessorService } from '../services/professor-service';
+import { IProfessorParams } from '../interfaces/professor-params';
 
 export class ProfessorController {
 	static async create(request: Request, response: Response): Promise<void> {
@@ -73,9 +74,23 @@ export class ProfessorController {
 				example: 'Paulo Menezes'
 			} 
 		*/
+		const departmentId = (request.query.departmentId as string) ? Number(request.query.departmentId) : undefined;
+		/*  
+			#swagger.parameters['departmentId'] = {
+				in: 'query',
+				description: 'Id do departamento',
+				type: 'number',
+				example: '1'
+			} 
+		*/
+
+		const params: IProfessorParams = {
+			name,
+			departmentId,
+		};
 
 		const professorService = container.resolve(ProfessorService);
-		const professors = await professorService.findAll(name);
+		const professors = await professorService.findAll(params);
 
 		/*  
       #swagger.responses[200] = {
@@ -98,10 +113,9 @@ export class ProfessorController {
       #swagger.description = 'Finds professors by department id'
     */
 
-		const { department_id } = request.params;
-		const departmentId = Number(department_id);
+		const { departmentId } = request.params;
 		/*  
-			#swagger.parameters['department_id'] = {
+			#swagger.parameters['departmentId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -110,7 +124,7 @@ export class ProfessorController {
 		*/
 
 		const professorService = container.resolve(ProfessorService);
-		const professors = await professorService.findAllByDepartment(departmentId);
+		const professors = await professorService.findAllByDepartment(Number(departmentId));
 
 		/*  
       #swagger.responses[200] = {
@@ -133,10 +147,9 @@ export class ProfessorController {
       #swagger.description = 'Finds a professor by its id'
     */
 
-		const { professor_id } = request.params;
-		const id = Number(professor_id);
+		const { professorId } = request.params;
 		/*  
-			#swagger.parameters['professor_id'] = {
+			#swagger.parameters['professorId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -145,7 +158,7 @@ export class ProfessorController {
 		*/
 
 		const professorService = container.resolve(ProfessorService);
-		const professor = await professorService.findById(id);
+		const professor = await professorService.findById(Number(professorId));
 
 		/*  
       #swagger.responses[404] = {
@@ -186,10 +199,10 @@ export class ProfessorController {
         }
       } 
     */
-		const { professor_id } = request.params;
-		const id = Number(professor_id);
+		const { professorId } = request.params;
+		const id = Number(professorId);
 		/*  
-			#swagger.parameters['professor_id'] = {
+			#swagger.parameters['professorId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -275,10 +288,10 @@ export class ProfessorController {
       #swagger.description = 'Deletes a professor by its id'
     */
 
-		const { professor_id } = request.params;
-		const id = Number(professor_id);
+		const { professorId } = request.params;
+		const id = Number(professorId);
 		/*  
-			#swagger.parameters['professor_id'] = {
+			#swagger.parameters['professorId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',

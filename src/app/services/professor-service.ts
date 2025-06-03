@@ -3,6 +3,7 @@ import { IProfessorRequest } from '../interfaces/requests/professor-request';
 import { IProfessorResponse } from '../interfaces/response/professor-response';
 import { IProfessorService } from '../interfaces/professor-service';
 import { IProfessorRepository } from '../interfaces/professor-repository';
+import { IProfessorParams } from '../interfaces/professor-params';
 
 @injectable()
 export class ProfessorService implements IProfessorService {
@@ -15,10 +16,8 @@ export class ProfessorService implements IProfessorService {
 		return await this.professorRepository.create(professor);
 	}
 
-	async findAll(name: string): Promise<IProfessorResponse[]> {
-		if (!name) return await this.professorRepository.findAll();
-
-		return await this.professorRepository.findAllByName(name);
+	async findAll(params: IProfessorParams): Promise<IProfessorResponse[]> {
+		return await this.professorRepository.findAll(params);
 	}
 
 	async findAllByDepartment(departmentId: number): Promise<IProfessorResponse[]> {

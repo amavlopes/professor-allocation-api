@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { ICourseRequest } from '../interfaces/requests/course-request';
 import { ICourseResponse } from '../interfaces/response/course-response';
 import { IRepository } from '../interfaces/repository';
+import { ICourseParams } from '../interfaces/course-params';
 
 @injectable()
 export class CourseRepository implements IRepository<ICourseRequest, ICourseResponse> {
@@ -23,26 +24,13 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		return resultado;
 	}
 
-	async findAll(): Promise<ICourseResponse[]> {
-		this.prismaClient.$connect();
-
-		const resultado = await this.prismaClient.course.findMany({
-			...this.includeAllocationsAndOmitAttributes(),
-		});
-
-		this.prismaClient.$disconnect();
-
-		return resultado;
-	}
-
-	async findAllByName(query: string): Promise<ICourseResponse[]> {
+	async findAll(params: ICourseParams): Promise<ICourseResponse[]> {
 		this.prismaClient.$connect();
 
 		const resultado = await this.prismaClient.course.findMany({
 			where: {
-				name: { contains: query },
+				...(params.name && { name: { contains: params.name } }),
 			},
-			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -55,7 +43,6 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 
 		const resultado = await this.prismaClient.course.findUnique({
 			where: { id },
-			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -72,7 +59,6 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		const resultado = await this.prismaClient.course.update({
 			data: { ...course },
 			where: { id },
-			...this.includeAllocationsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -108,17 +94,5 @@ export class CourseRepository implements IRepository<ICourseRequest, ICourseResp
 		});
 
 		this.prismaClient.$disconnect();
-	}
-
-	private includeAllocationsAndOmitAttributes() {
-		return {
-			include: {
-				allocations: {
-					omit: {
-						courseId: true,
-					},
-				},
-			},
-		};
 	}
 }

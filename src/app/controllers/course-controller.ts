@@ -4,6 +4,7 @@ import { ErrorResponse } from '../models/error-response';
 import { HttpStatusEnum } from '../enums/http-status';
 import { CourseService } from '../services/course-service';
 import { ICourseRequest } from '../interfaces/requests/course-request';
+import { ICourseParams } from '../interfaces/course-params';
 
 export class CourseController {
 	static async create(request: Request, response: Response): Promise<void> {
@@ -79,8 +80,12 @@ export class CourseController {
 			} 
 		*/
 
+		const params: ICourseParams = {
+			name,
+		};
+
 		const courseService = container.resolve(CourseService);
-		const courses = await courseService.findAll(name);
+		const courses = await courseService.findAll(params);
 
 		/*  
       #swagger.responses[200] = {
@@ -103,10 +108,10 @@ export class CourseController {
       #swagger.description = 'Finds a course by its id'
     */
 
-		const { course_id } = request.params;
-		const id = Number(course_id);
+		const { courseId } = request.params;
+		const id = Number(courseId);
 		/*  
-			#swagger.parameters['course_id'] = {
+			#swagger.parameters['courseId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -156,10 +161,10 @@ export class CourseController {
         }
       } 
     */
-		const { course_id } = request.params;
-		const id = Number(course_id);
+		const { courseId } = request.params;
+		const id = Number(courseId);
 		/*  
-			#swagger.parameters['course_id'] = {
+			#swagger.parameters['courseId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',
@@ -245,10 +250,10 @@ export class CourseController {
       #swagger.description = 'Deletes a course by its id'
     */
 
-		const { course_id } = request.params;
-		const id = Number(course_id);
+		const { courseId } = request.params;
+		const id = Number(courseId);
 		/*  
-			#swagger.parameters['course_id'] = {
+			#swagger.parameters['courseId'] = {
 				in: 'path',
 				description: '',
 				type: 'number',

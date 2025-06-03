@@ -3,6 +3,7 @@ import { IDepartmentRequest } from '../interfaces/requests/department-request';
 import { IDepartmentResponse } from '../interfaces/response/department-response';
 import { IService } from '../interfaces/service';
 import { IRepository } from '../interfaces/repository';
+import { IDepartmentParams } from '../interfaces/department-params';
 
 @injectable()
 export class DepartmentService implements IService<IDepartmentRequest, IDepartmentResponse> {
@@ -15,10 +16,8 @@ export class DepartmentService implements IService<IDepartmentRequest, IDepartme
 		return await this.departmentRepository.create(department);
 	}
 
-	async findAll(name: string): Promise<IDepartmentResponse[]> {
-		if (!name) return await this.departmentRepository.findAll();
-
-		return await this.departmentRepository.findAllByName(name);
+	async findAll(params: IDepartmentParams): Promise<IDepartmentResponse[]> {
+		return await this.departmentRepository.findAll(params);
 	}
 
 	async findById(id: number): Promise<IDepartmentResponse> {

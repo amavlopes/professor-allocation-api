@@ -5,10 +5,10 @@ const router = express.Router();
 
 router.post('/professors', ProfessorController.create);
 router.get('/professors', ProfessorController.findAll);
-router.get('/professors/department/:department_id', ProfessorController.findAllByDepartment);
-router.get('/professors/:professor_id', ProfessorController.findById);
-router.put('/professors/:professor_id', ProfessorController.update);
+router.get('/professors/department/:departmentId', ProfessorController.findAllByDepartment);
+router.get('/professors/:professorId', ProfessorController.findById);
+router.put('/professors/:professorId', ProfessorController.update);
 router.delete('/professors', ProfessorController.deleteAll);
-router.delete('/professors/:professor_id', ProfessorController.deleteById);
+router.delete('/professors/:professorId', ProfessorController.deleteById);
 
 export default router;

@@ -3,6 +3,7 @@ import { PrismaClient } from '@prisma/client';
 import { IDepartmentRequest } from '../interfaces/requests/department-request';
 import { IDepartmentResponse } from '../interfaces/response/department-response';
 import { IRepository } from '../interfaces/repository';
+import { IDepartmentParams } from '../interfaces/department-params';
 
 @injectable()
 export class DepartmentRepository implements IRepository<IDepartmentRequest, IDepartmentResponse> {
@@ -23,26 +24,13 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 		return resultado;
 	}
 
-	async findAll(): Promise<IDepartmentResponse[]> {
+	async findAll(params: IDepartmentParams): Promise<IDepartmentResponse[]> {
 		this.prismaClient.$connect();
 
 		const resultado: IDepartmentResponse[] = await this.prismaClient.department.findMany({
-			...this.includeProfessorsAndOmitAttributes(),
-		});
-
-		this.prismaClient.$disconnect();
-
-		return resultado;
-	}
-
-	async findAllByName(query: string): Promise<IDepartmentResponse[]> {
-		this.prismaClient.$connect();
-
-		const resultado = await this.prismaClient.department.findMany({
 			where: {
-				name: { contains: query },
+				...(params.name && { name: { contains: params.name } }),
 			},
-			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -55,7 +43,6 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 
 		const resultado = await this.prismaClient.department.findUnique({
 			where: { id },
-			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -72,7 +59,6 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 		const resultado = await this.prismaClient.department.update({
 			data: { ...department },
 			where: { id },
-			...this.includeProfessorsAndOmitAttributes(),
 		});
 
 		this.prismaClient.$disconnect();
@@ -108,17 +94,5 @@ export class DepartmentRepository implements IRepository<IDepartmentRequest, IDe
 		});
 
 		this.prismaClient.$disconnect();
-	}
-
-	private includeProfessorsAndOmitAttributes() {
-		return {
-			include: {
-				professors: {
-					omit: {
-						departmentId: true,
-					},
-				},
-			},
-		};
 	}
 }
