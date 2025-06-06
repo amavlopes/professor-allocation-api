@@ -63,11 +63,9 @@ export class AllocationRepository implements IAllocationRepository {
 
 		const resultado = await this.prismaClient.allocation.findMany({
 			where: {
-				...(params.day && { day: { contains: params.day } }),
-				...(params.startHour && { startHour: { contains: params.startHour } }),
-				...(params.endHour && { endHour: { contains: params.endHour } }),
-				...(params.courseId && { courseId: { contains: params.courseId } }),
-				...(params.professorId && { professorId: { contains: params.professorId } }),
+				...(params.day && { day: params.day }),
+				...(params.courseId && { courseId: params.courseId }),
+				...(params.professorId && { professorId: params.professorId }),
 			},
 			include: {
 				course: true,

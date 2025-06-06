@@ -743,24 +743,6 @@
             }
           },
           {
-            "name": "startHour",
-            "in": "query",
-            "description": "",
-            "example": "08:00",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "endHour",
-            "in": "query",
-            "description": "",
-            "example": "10:00",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "courseId",
             "in": "query",
             "description": "",

@@ -76,24 +76,6 @@ export class AllocationController {
 				example: '1'
 			} 
 		*/
-		const startHour = request.query.startHour as string;
-		/*  
-			#swagger.parameters['startHour'] = {
-				in: 'query',
-				description: '',
-				type: 'string',
-				example: '08:00'
-			} 
-		*/
-		const endHour = request.query.endHour as string;
-		/*  
-			#swagger.parameters['endHour'] = {
-				in: 'query',
-				description: '',
-				type: 'string',
-				example: '10:00'
-			} 
-		*/
 		const courseId = (request.query.courseId as string) ? Number(request.query.courseId) : undefined;
 		/*  
 			#swagger.parameters['courseId'] = {
@@ -116,8 +98,6 @@ export class AllocationController {
 
 		const parametros: IAllocationParams = {
 			day,
-			startHour,
-			endHour,
 			courseId,
 			professorId,
 		};
