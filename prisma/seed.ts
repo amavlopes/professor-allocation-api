@@ -9,7 +9,15 @@ async function main() {
 
 async function populateCourses() {
 	try {
-		const courses = [{ name: 'Bacharelado em Administração' }, { name: 'Licenciatura em Artes Visuais' }, { name: 'Bacharelado em Sistemas da Informação' }, { name: 'Bacharelado em Física' }];
+		const courses = [
+			{
+				name: 'Bacharelado em Ciência Política',
+				description: 'O curso visa formar profissionais capazes de analisar e interpretar os fenômenos políticos, com foco na formação de líderes, pesquisadores e servidores públicos.',
+			},
+			{ name: 'Bacharelado em Biologia', description: 'Oferece uma formação multidisciplinar em biologia, com foco em diferentes áreas como biologia celular, genética, fisiologia e ecologia.' },
+			{ name: 'Licenciatura em Pedagogia', description: 'Forma professores para atuar na educação infantil e no ensino fundamental, com foco na formação de crianças e jovens.' },
+			{ name: 'Bacharelado em Música', description: 'Formar músicos com ampla formação, com foco em composição, performance, análise musical e história da música.' },
+		];
 		const resultado = await prisma.course.createMany({
 			data: courses,
 		});
@@ -24,7 +32,12 @@ async function populateCourses() {
 
 async function populateDepartments() {
 	try {
-		const departments = [{ name: 'Ciências Sociais e Aplicadas' }, { name: 'Artes e Comunicação' }, { name: 'Ciências Exatas e da Natureza' }];
+		const departments = [
+			{ name: 'Ciências Sociais', description: 'Aborda áreas como sociologia, ciência política, antropologia, história, e geografia.' },
+			{ name: 'Ciências Biológicas', description: 'Envolve áreas como biologia, bioquímica, genética, microbiologia e ecologia.' },
+			{ name: 'Educação', description: 'Abrange disciplinas e cursos sobre pedagogia, educação infantil, educação especial, entre outros.' },
+			{ name: 'Artes', description: 'Envolve áreas como artes visuais, música, teatro, dança e cinema.' },
+		];
 		const resultado = await prisma.department.createMany({
 			data: departments,
 		});
@@ -75,7 +88,7 @@ async function populateAllocations() {
 				professorId: 2,
 			},
 			{
-				day: 2,
+				day: 1,
 				startHour: '08:00',
 				endHour: '12:00',
 				courseId: 3,
@@ -83,8 +96,8 @@ async function populateAllocations() {
 			},
 			{
 				day: 2,
-				startHour: '13:00',
-				endHour: '17:00',
+				startHour: '08:00',
+				endHour: '11:00',
 				courseId: 4,
 				professorId: 4,
 			},
