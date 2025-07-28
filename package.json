@@ -14,7 +14,7 @@
 		"prisma-drop-db": "npx prisma migrate reset --skip-seed",
 		"swagger": "npx tsx watch --include ./src/** ./swagger.ts",
 		"cy:open": "cypress open",
-		"cy:run": "cypress run"
+		"cy:spec": "cypress run --spec"
 	},
 	"author": "Amanda Avelino Lopes",
 	"license": "ISC",

@@ -88,6 +88,29 @@ DATABASE_URL = mysql://usuario:senha@localhost:3306/nome_do_banco
 
 ---
 
+## 🧪 Executando testes com Cypress
+
+#### 1. Com interface
+
+##### Após executar a API, execute o comando:
+
+```bash
+  npm run cy:open
+```
+
+##### Escolha o browser, depois "Start E2E Testing...' e escolha o spec da lista. (exemplo: post-course.cy.ts)
+
+#### 2. Em modo headless
+
+##### Execute o comado abaixo, com um dos arquivos em 'cypress/e2e':
+
+```bash
+  # Exemplo: npm run cy:run -- cypress/e2e/post-course.cy.ts
+  npm run cy:spec -- <CAMINHO_ARQUIVO_CYPRESS>
+```
+
+---
+
 ## 🔄 Mantendo o banco atualizado
 
 #### Sempre que fizer alterações no arquivo prisma/schema.prisma:
